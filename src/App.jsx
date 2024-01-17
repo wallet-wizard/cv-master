@@ -7,6 +7,7 @@ import Editor from './components/Editor';
 import Login from './components/Login';
 import MyCVs from './components/MyCVs';
 import SearchJobs from './components/SearchJobs';
+import './utils/globalStyles.css'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -19,7 +20,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="myCVs" element={<MyCVs />} />
           <Route path="searchJobs" element={<SearchJobs />} />
-          <Route path="editor" element={<Editor />} />
+          <Route path="/editor/*" element={<Editor />} /> {/* Adjust the path for the Editor component */}
       </Routes>
     </Router>
   )

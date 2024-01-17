@@ -1,0 +1,25 @@
+:root {
+    --bg-dark: rgba(77, 83, 98, 1);
+    --bg-textArea: rgba(215, 215, 215, 1);
+    --bg-textArea-lighter: rgba(233, 233, 233, 1);
+}
+
+.editor-sideBar {
+    min-width: 12.5rem;
+    min-height: 100vh;
+    background-color:var(--bg-dark);
+
+}
+
+.editor-textArea {
+    
+    border: 0;
+    width: 100% !important;
+    background-color: var(--bg-textArea-lighter);
+    white-space: nowrap;  /* Prevents text from wrapping to the next line */
+    overflow-x: auto;   /* Hide horizontal scrollbar */
+    overflow-y:visible;     /* Enables vertical scrollbar when content overflows */
+    resize: none;         /* Disables resizing */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
