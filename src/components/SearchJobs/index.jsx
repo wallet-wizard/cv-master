@@ -30,7 +30,10 @@ export default function SearchJobs(){
             
     }, [])
 
+    const jobsArray = JSON.stringify(jobs, null, 2)
+
     console.log(jobsArray)
+
 
     // const jobCards = jobsArray.map(job => {
     //     return (
