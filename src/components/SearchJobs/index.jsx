@@ -1,4 +1,5 @@
 import React from 'react'
+import Card from './Card.jsx'
 
 export default function SearchJobs(){
     const [jobs, setJobsData] = React.useState({})
@@ -30,29 +31,27 @@ export default function SearchJobs(){
             
     }, [])
 
-    const jobsArray = JSON.stringify(jobs, null, 2)
-
-    console.log(jobsArray)
+    const jobsArray = Array(JSON.stringify(jobs))
 
 
-    // const jobCards = jobsArray.map(job => {
-    //     return (
-    //         <Card 
-    //             key={job.id}
-    //             title={job.title}
-    //             employer={job.company}
-    //             location={job.location}
-    //             datePosted={job.datePosted}
-    //         />
-    //     )
-    // })
+    const jobCards = jobsArray.map(job => {
+        return (
+            <Card 
+                key={job.id}
+                title={job.title}
+                employer={job.company}
+                location={job.location}
+                datePosted={job.datePosted}
+            />
+        )
+    })
 
     return(
         <>
             <h1>Let's put that new CV to use, search for your next role today!</h1>
             {/* <div>{JSON.stringify(jobs, null, 2)}</div> */}
             <section>
-                {/* {jobCards} */}
+                {jobCards}
             </section>
 
             
