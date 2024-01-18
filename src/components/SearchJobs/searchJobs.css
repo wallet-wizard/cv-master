@@ -2,8 +2,17 @@
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     display: flex;
     justify-content: center;
+    padding: 2rem;
 }
-/* 
-.job-cards {
-    display: flex;
-} */
+
+.job-card-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.job-card {
+    padding: 1rem;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}

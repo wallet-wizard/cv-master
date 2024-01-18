@@ -35,7 +35,7 @@ export default function SearchJobs() {
       <h1 className="job-search-title">
         Let's put that new CV to use, search for your next role today!
       </h1>
-      <section className="job-cards">
+      <section className="job-card-container">
         {jobs.map((job) => (
           <Card
             key={job.id}
