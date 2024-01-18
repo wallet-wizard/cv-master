@@ -1,5 +1,6 @@
 import React, { useEffect, useState, Fragment } from "react";
 import Card from "./Card.jsx";
+import "./searchJobs.css";
 
 export default function SearchJobs() {
   const [jobs, setJobsData] = useState([]);
@@ -29,8 +30,6 @@ export default function SearchJobs() {
       });
   }, []);
 
-  // JSON.stringify(jobs, null, 2)
-
   return (
     <>
       <h1>Let's put that new CV to use, search for your next role today!</h1>
@@ -40,7 +39,9 @@ export default function SearchJobs() {
             key={job.id}
             title={job.title}
             company={job.company.display_name}
-            city={job.location.area[2]}
+            city={
+              job.location.area[2] ? job.location.area[2] : job.location.area[1]
+            }
             country={job.location.area[0]}
             datePosted={job.datePosted}
           />
