@@ -32,8 +32,10 @@ export default function SearchJobs() {
 
   return (
     <>
-      <h1>Let's put that new CV to use, search for your next role today!</h1>
-      <section>
+      <h1 className="job-search-title">
+        Let's put that new CV to use, search for your next role today!
+      </h1>
+      <section className="job-cards">
         {jobs.map((job) => (
           <Card
             key={job.id}
@@ -43,7 +45,9 @@ export default function SearchJobs() {
               job.location.area[2] ? job.location.area[2] : job.location.area[1]
             }
             country={job.location.area[0]}
-            datePosted={job.datePosted}
+            salary={job.salary_max}
+            url={job.redirect_url}
+            // created={job.created}
           />
         ))}
       </section>
