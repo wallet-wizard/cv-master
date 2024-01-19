@@ -21,8 +21,14 @@
     align-items: center;
     background-color: #c9e4ca;
     margin: 1.5rem;
+    border-radius: 10px;
 }
 
 .job-url {
     color: black;
+    text-decoration: none;
+}
+
+.job-url:hover{
+    text-decoration: underline;
 }
