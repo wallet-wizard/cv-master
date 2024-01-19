@@ -72,31 +72,31 @@ export const GlobalContextProvider = ({ children }) => {
 
     // Get current Database
     const CVMDatabase = getCVMDatabase();
-    if (CVMDatabase === null) {
-      // ...
-    }
-    const username = getCVMCurrentUser();
+    // if (CVMDatabase === null) {
+    //   // ...
+    // }
+    // const username = getCVMCurrentUser();
 
-    // Check if username exists in current database
-    const existingIndex = CVMDatabase.findIndex(obj => obj.userData.username === username);
+    // // Check if username exists in current database
+    // const existingIndex = CVMDatabase.findIndex(obj => obj.userData.username === username);
 
-    // If it does, only update that object
-    if (existingIndex !== -1) {
-      CVMDatabase[existingIndex] = {
-        ...CVMDatabase[existingIndex],
-        ...data
-      };
-    } else {
-      // If no matching username is found, add a new object to the array
-      const newObj = {
-        userData: {
-          lastLogin: new Data()
-        },
-        ...data
-      };
+    // // If it does, only update that object
+    // if (existingIndex !== -1) {
+    //   CVMDatabase[existingIndex] = {
+    //     ...CVMDatabase[existingIndex],
+    //     ...data
+    //   };
+    // } else {
+    //   // If no matching username is found, add a new object to the array
+    //   const newObj = {
+    //     userData: {
+    //       lastLogin: new Data()
+    //     },
+    //     ...data
+    //   };
 
-      CVMDatabase.push(newObj);
-    }
+    //   CVMDatabase.push(newObj);
+    // }
   };
 
 
