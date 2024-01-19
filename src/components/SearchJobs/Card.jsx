@@ -1,23 +1,6 @@
 import React from "react";
-import { useSpring, animated, to as interpolate } from "@react-spring/web";
-import { useDrag } from "react-use-gesture";
 
 function Card(props) {
-  //   const [springs, api] = useSpring(() => ({
-  //     from: { x: 0 },
-  //   }));
-
-  //   const handleClick = () => {
-  //     api.start({
-  //       from: {
-  //         x: 0,
-  //       },
-  //       to: {
-  //         x: 100,
-  //       },
-  //     });
-  //   };
-
   return (
     <div className="job-card">
       <h2 className="job-title">{props.title}</h2>
@@ -26,9 +9,18 @@ function Card(props) {
         {props.city}, {props.country} • £{props.salary} per annum
       </p>
       <strong>
-        <a className="job-url" href={props.url} target="_blank">
-          Apply Now
-        </a>
+        <div className="job-url-section">
+          <a className="job-url" href={props.url} target="_blank">
+            Apply Now
+          </a>
+          <a
+            className="job-url"
+            href="https://cv-master.netlify.app/editor"
+            target="_blank"
+          >
+            Create a CV
+          </a>
+        </div>
       </strong>
     </div>
   );
