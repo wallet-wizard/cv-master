@@ -9,7 +9,7 @@ export default function SearchJobs() {
     import.meta.env.VITE_ADZUNA_ID
   }&app_key=${
     import.meta.env.VITE_ADZUNA_KEY
-  }&results_per_page=20&what=javascript%20developer&content-type=application/json`;
+  }&results_per_page=20&what=software%20developer&where=london&distance=50&max_days_old=30`;
 
   // const url =
   //   "https://jobs-api14.p.rapidapi.com/list?query=Web%20Developer&location=United%20States&distance=1.0&language=en_GB&remoteOnly=false&datePosted=month&emplyomentTypes=fulltime%3Bparttime%3Bintern%3Bcontractor&index=0";
@@ -21,7 +21,7 @@ export default function SearchJobs() {
   //   },
   // };
 
-  useEffect(function () {
+  https: useEffect(function () {
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
