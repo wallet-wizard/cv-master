@@ -14,3 +14,5 @@ Resources used:
 [React Router - 'relative'](https://reactrouter.com/en/main/components/link#relative)
 
 [How to Create and Style Borders in CSS - Anna Fitzgerald](https://blog.hubspot.com/website/css-border)
+
+[Format - Day.js](https://day.js.org/docs/en/display/format)

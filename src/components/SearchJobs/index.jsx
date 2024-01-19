@@ -47,7 +47,7 @@ export default function SearchJobs() {
             country={job.location.area[0]}
             salary={job.salary_max}
             url={job.redirect_url}
-            // created={job.created}
+            created={job.created}
           />
         ))}
       </section>

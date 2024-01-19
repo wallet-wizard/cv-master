@@ -1,6 +1,6 @@
 import React from "react";
-import Editor from "../Editor/";
-import { NavLink, Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import dayjs from "dayjs";
 
 function Card(props) {
   return (
@@ -10,6 +10,7 @@ function Card(props) {
       <p className="job-posting-info">
         {props.city}, {props.country} • £{props.salary} per annum
       </p>
+      <p>Posted: {dayjs(props.created).format("D/M/YYYY")}</p>
       <strong>
         <div className="job-url-section">
           <a className="job-url" href={props.url} target="_blank">
