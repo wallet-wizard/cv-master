@@ -4,7 +4,7 @@ function CustomTextarea(props) {
   const id = useId();
   const textAreaRef = useRef(null)
   const startingRows = useRef(null)
-  // console.log(id)
+
   const [rowsCount, setRowsCount] = useState(0);
   const [text, setText] = useState("");
   
