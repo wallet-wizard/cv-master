@@ -70,6 +70,10 @@ export const GlobalContextProvider = ({ children }) => {
       return;
     }
 
+
+
+
+
     // Get current Database
     const CVMDatabase = getCVMDatabase();
     // if (CVMDatabase === null) {

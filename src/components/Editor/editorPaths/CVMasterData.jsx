@@ -5,6 +5,7 @@ const CVMasterData = [
             lastLogin: new Date(),
         },
         stagingCV: {
+            CVName: '',
             title: '',
             summary: '',
             skills: '',
