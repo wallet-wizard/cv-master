@@ -31,7 +31,7 @@ export default function SearchJobs() {
   }, []);
 
   return (
-    <>
+    <div className="job-body">
       <h1 className="job-search-title">
         Let's put that new CV to use, search for your next role today!
       </h1>
@@ -51,6 +51,6 @@ export default function SearchJobs() {
           />
         ))}
       </section>
-    </>
+    </div>
   );
 }

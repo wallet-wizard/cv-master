@@ -1,3 +1,7 @@
+.job-body {
+    background-color: #87bba2;
+}
+
 .job-search-title {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     display: flex;
@@ -15,4 +19,10 @@
     display:flex;
     flex-direction: column;
     align-items: center;
+    background-color: #c9e4ca;
+    margin: 1.5rem;
+}
+
+.job-url {
+    color: black;
 }
