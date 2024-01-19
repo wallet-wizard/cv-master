@@ -42,7 +42,9 @@ export default function SearchJobs() {
             title={job.title}
             company={job.company.display_name}
             city={
-              job.location.area[2] ? job.location.area[2] : job.location.area[1]
+              job.location.area.length > 2
+                ? `${job.location.area[2]}, `
+                : `${job.location.area[1]}, `
             }
             country={job.location.area[0]}
             salary={job.salary_max}

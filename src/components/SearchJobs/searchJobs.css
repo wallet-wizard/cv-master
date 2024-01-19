@@ -42,3 +42,9 @@
     display: flex;
     justify-content: space-around;
 }
+
+.job-title {
+    border-bottom: solid;
+    border-color: grey;
+    border-width: 0.1rem;
+}
