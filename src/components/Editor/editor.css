@@ -15,6 +15,7 @@
     
     border: 0;
     width: 100% !important;
+    /* padding: 1.2rem; */
     background-color: var(--bg-textArea-lighter);
     /* white-space: nowrap;   */
     overflow-x: auto;   

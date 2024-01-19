@@ -11,7 +11,7 @@ import './utils/globalStyles.css'
 
 function App() {
   const [count, setCount] = useState(0)
-
+  console.log("App RAN")
   return (
     <Router>
       <NavTabs />
