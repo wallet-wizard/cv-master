@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
+
 // We are initializing the Context
 const GlobalContext = createContext();
 
@@ -18,7 +19,7 @@ export const GlobalContextProvider = ({ children }) => {
   const [userData, setUserData] = useState({
     userData: {
       username: 'userTest1',
-      lastLogin: new Date(),
+      signupDate: new Date(),
     },
     stagingCV: {
       title: '',
@@ -59,48 +60,48 @@ export const GlobalContextProvider = ({ children }) => {
   // Function to get CV-Master logged-in user from localStorage
   const getCVMCurrentUser = () => {
     const storedValue = localStorage.getItem('CVMCurrentUser');
-    return storedValue ? JSON.parse(storedValue) : null;
+    return storedValue ? storedValue : null;
   };
+
+  const updateCVMCurrentUser = (username) => {
+    localStorage.setItem('CVMCurrentUser', username);
+  }
 
   // Function to update CV-Master DB in localStorage
   const updateCVMDatabase = (data) => {
-    // Discard update if data received is not of type 'object'
     if (typeof data !== 'object' || data === null) {
       console.Error("Error updating new Data to local Storage. Data should be type: 'object");
       return;
     }
-
-
-
-
-
+    
     // Get current Database
-    const CVMDatabase = getCVMDatabase();
-    // if (CVMDatabase === null) {
-    //   // ...
-    // }
-    // const username = getCVMCurrentUser();
+    let CVMDatabase = getCVMDatabase();
+    
+    // If Database doesn't exist, create one and push the data in
+    if (!CVMDatabase) {
+      CVMDatabase = [data];
+      localStorage.setItem('CVMDatabase', JSON.stringify(CVMDatabase));
+      return;
+    }
 
-    // // Check if username exists in current database
-    // const existingIndex = CVMDatabase.findIndex(obj => obj.userData.username === username);
+    // Get current username
+    const username = getCVMCurrentUser();
 
-    // // If it does, only update that object
-    // if (existingIndex !== -1) {
-    //   CVMDatabase[existingIndex] = {
-    //     ...CVMDatabase[existingIndex],
-    //     ...data
-    //   };
-    // } else {
-    //   // If no matching username is found, add a new object to the array
-    //   const newObj = {
-    //     userData: {
-    //       lastLogin: new Data()
-    //     },
-    //     ...data
-    //   };
+    // Check if username exists in current database
+    const existingIndex = CVMDatabase.findIndex(obj => obj.userData.username === username);
 
-    //   CVMDatabase.push(newObj);
-    // }
+    // If it does, only update that object
+    if (existingIndex !== -1) {
+      CVMDatabase[existingIndex] = {
+        ...CVMDatabase[existingIndex],
+        ...data
+      };
+    } else {
+      // If no matching username is found, add a new object to the array
+      CVMDatabase.push(data);
+    }
+    localStorage.setItem('CVMDatabase', JSON.stringify(CVMDatabase));
+    return;
   };
 
 
@@ -116,54 +117,56 @@ export const GlobalContextProvider = ({ children }) => {
     })
   }
 
-  // RUNS ON EVERY APP REFRESH
-  useEffect(() => {
-    const currentUser = getCVMCurrentUser();
-    const CVMDatabase = getCVMDatabase();
+// RUNS ON EVERY APP REFRESH
+useEffect(() => {
+  const currentUser = getCVMCurrentUser();
+  const CVMDatabase = getCVMDatabase();
 
-    // Create CMDatabase if it doesn't exist
-    if (!CVMDatabase) {
-      updateCVMDatabase([]);
+  // Create CVMDatabase if it doesn't exist
+  if (!CVMDatabase) {
+    updateLocalStorage('CVMDatabase', []);
+  }
+
+  // Check if current user is set
+  if (!currentUser) {
+    // Prompt user with login component
+    // You can implement this logic here
+    // For example, set a state to show a login modal
+    // or navigate to a login page
+
+    console.log('User not set. Prompting for login...');
+  } else {
+    // User is set, check if user exists in the database
+    const userExists = CVMDatabase.some(obj => obj.userData.username === currentUser);
+
+    if (userExists) {
+      // User exists, retrieve user data from the database
+      const userDataFromDB = CVMDatabase.find(obj => obj.userData.username === currentUser);
+
+      // Update global state with user data
+      setUserData(userDataFromDB);
+    } else {
+      // User is new, initiate a new stateful object
+      // You might want to customize this based on your requirements
+      setUserData({
+        userData: {
+          username: currentUser,
+          lastLogin: new Date(),
+        },
+        stagingCV: {
+          title: '',
+          summary: '',
+          skills: '',
+          experience: [],
+          education: [],
+        },
+        userCVs: []
+      });
     }
+  }
 
-    // Check if CVMCurrentUser key exists in local storage
-    if (currentUser && CVMDatabase) {
-      // Check if user exists
-      const CVMUserData = CVMDatabase.find(obj => obj?.userData?.username === currentUser) || null;
+}, []);
 
-      // If user exists, set data
-      if (CVMUserData) {
-        setUserData((prev) => {
-          return {
-            ...prev,
-            ...CVMUserData
-          }
-        });
-      } else {
-        const addNewUser = {
-          userData: {
-            username: currentUser,
-            lastLogin: new Date(),
-          },
-          stagingCV: {
-            title: '',
-            summary: '',
-            skills: '',
-            experience: [],
-            education: [],
-          },
-          userCVs: []
-        };
-      }
-    }
-  }, [])
-
-  // // Example useEffect for updating data to localStorage on specific state changes
-  // useEffect(() => {
-  //   // Update data in localStorage when userData or newCV changes
-  //   updateLocalStorage('userData', userData);
-  //   updateLocalStorage('newCV', newCV);
-  // }, [userData, newCV]);
 
 
   return (
@@ -177,7 +180,8 @@ export const GlobalContextProvider = ({ children }) => {
       setText,
       getCVMCurrentUser,
       getCVMDatabase,
-      updateCVMDatabase
+      updateCVMDatabase,
+      updateCVMCurrentUser
     }}>
       {children}
     </GlobalContext.Provider>
