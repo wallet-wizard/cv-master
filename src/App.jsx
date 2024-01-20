@@ -12,22 +12,25 @@ import SearchJobs from './components/SearchJobs';
 import './utils/globalStyles.css'
 
 function App() {
-  const { getCVMDatabase, getCVMCurrentUser } = useGlobalContext();
-  const [ authenticated, setAuthenticated ] = useState(false);
-  
+  const { authenticated, setAuthenticated, getCVMDatabase, getCVMCurrentUser } = useGlobalContext();
+  // const [ authenticated, setAuthenticated ] = useState(false);
+
   useEffect(() => {
     const currentUser = getCVMCurrentUser();
     if (currentUser){
-      setAuthenticated(true);
+      allowUserIn();
     }
   }, [authenticated]);
 
+  function allowUserIn() {
+    setAuthenticated(true)
+  }
 
   console.log("App RAN")
   return (
     <Router>
       {!authenticated ? (
-        <Login setAuthenticated={setAuthenticated}/>
+        <Login allowUserIn={allowUserIn}/>
       ) : (
         <>
           <NavTabs />
