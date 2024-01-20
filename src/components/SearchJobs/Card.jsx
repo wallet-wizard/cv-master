@@ -1,6 +1,5 @@
 import React from "react";
 import { useSpring, animated, to as interpolate } from "@react-spring/web";
-import { useDrag } from "react-use-gesture";
 
 function Card(props) {
   //   const [springs, api] = useSpring(() => ({

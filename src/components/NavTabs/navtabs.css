@@ -1,0 +1,22 @@
+.navtabs-nav {
+    --bg-color: rgb(255, 255, 255);
+    /* --bg-color: #985959; */
+}
+
+.navtabs-nav {
+    background-color: var(--bg-color) !important;
+    letter-spacing: 1.3px;
+    height: var(--navbar-height);
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+
+  }
+
+.navtabs-nav .navbar-brand {
+    font-family: 'Kaushan Script', cursive;
+    font-weight: 700;
+    font-size: 1.6em;
+}
+
+.navtabs-nav .nav-link {
+    font-family: 'Oxygen', sans-serif;
+}       

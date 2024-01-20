@@ -1,16 +1,12 @@
 import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './editor.css';
 import { useGlobalContext } from '../../utils/GlobalContext';
 
 const EditorSideBar = (props) => {
-  const { updateLocalStorage, getLocalStorage } = useGlobalContext();
+  const { authenticated, setAuthenticated, updateLocalStorage, getLocalStorage } = useGlobalContext();
   const strr = {one:"AFSFAGDFHADFHG", two:"asfasasf"}
 
-  // useEffect(() => {
-  //   const localStorage = getLocalStorage('newCV');
-  //   console.log(localStorage)
-  // }, []);
+ 
 
   return (
     <aside className='editor-sideBar d-none d-md-block col-2'>
@@ -22,7 +18,7 @@ const EditorSideBar = (props) => {
             <Link to="experience" className="nav-link">Experience</Link>
             <Link to="education" className="nav-link">Education</Link>
             <Link to="other" className="nav-link">Other</Link>
-            <button onClick={() => updateLocalStorage('newCV', strr)} className="btn btn-primary">SAVE</button>
+            <button onClick={() => setAuthenticated(!authenticated)} className="btn btn-primary">SAVE</button>
           </li>
         </ul>
       </nav>
