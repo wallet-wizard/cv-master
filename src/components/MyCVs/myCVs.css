@@ -1,0 +1,60 @@
+/* My CV table styles */
+#page-div{
+    background-color: rgb(217, 217, 217);
+    min-height: 100vh
+}
+
+#table-div {
+    width: 85%;
+    height: 80vh;
+    margin: 0 auto;
+}
+
+table{
+    text-align: center;
+    box-shadow: 0px 0px 10px -2px #000000;
+}
+
+tbody{
+    margin-top: 20px;
+}
+
+th{
+    background: #4D5362 !important;
+    color: rgb(237, 237, 237) !important;
+}
+
+thead {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    overflow: hidden;
+}
+
+th.top-left {
+    border-top-left-radius: 10px;
+    overflow: hidden;
+}
+
+th.top-right {
+    border-top-right-radius: 10px;
+    overflow: hidden;
+}
+
+#btn-div{
+    display: flex;
+    justify-content: flex-end;
+}
+
+button#add-application{
+    background-color: #8795CA;
+    border: none;
+}
+
+button#add-application:active{
+    box-shadow: inset 0px 1px 20px -5px rgba(195, 202, 234, 0.57)
+}
+
+
+
+
+
