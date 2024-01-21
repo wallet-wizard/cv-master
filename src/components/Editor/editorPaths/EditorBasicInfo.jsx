@@ -32,7 +32,7 @@ Results-oriented and highly skilled Front-end Developer with [X years] of experi
 
     return (
         <div className="d-block Editor-basicInfo">
-            <h3>Basic Info</h3>
+            <h3 className='editor-section-title'>Basic Info</h3>
             <CustomTextarea name={"title"} id="title" defaultValue={title} updateValue={(event) => setText({event, setState: setUserData})} />
             <CustomTextarea name={"summary"} id="summary" defaultValue={summary} updateValue={(event) => setText({event, setState: setUserData})} />
 

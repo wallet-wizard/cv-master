@@ -90,7 +90,7 @@ export default function EditorSkills() {
 
   return (
     <div className="d-block Editor-skills">
-      <h3>Skills</h3>
+      <h3 className='editor-section-title'>Skills</h3>
       <CustomTextarea name={"skills-header"} id="skills-header" defaultValue={header} updateValue={(event) => setText({event, setState: setUserData})} />
       {skillElements}
       <button onClick={() => addTextarea()} className="addSkill">ADD</button>

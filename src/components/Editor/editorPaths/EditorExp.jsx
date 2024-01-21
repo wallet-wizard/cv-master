@@ -11,7 +11,7 @@ export default function EditorExp() {
 
     return(
         <div className="d-block Editor-exp">
-            <h3>Experience</h3>
+            <h3 className='editor-section-title'>Experience</h3>
             <CustomTextarea name={"exp"} id="exp" rows={expLength} defaultValue={exp} setTitle={(event) => setText(event, setNewCV)} />
         </div>
     )

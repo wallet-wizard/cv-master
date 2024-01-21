@@ -1,10 +1,14 @@
 
+/* EDITOR CONTAINER */
 
 .editor-wrapper {
-    --bg-dark: rgba(77, 83, 98, 1);
-    --bg-textArea: rgba(215, 215, 215, 1);
-    --bg-textArea-lighter: rgba(233, 233, 233, 1);
+    --editor-sidebar-bg-dark: rgba(77, 83, 98, 1);
+    --editor-textArea-bg: rgba(215, 215, 215, 1);
+    --editor-textArea-bg-lighter: rgba(233, 233, 233, 1);
+    --editor-textArea-hover: rgba(255, 255, 255, 0.2);
+    --editor-btn-bg: rgb(135, 149, 202);
     --editor-body-bg-color: rgb(248, 248, 248);
+    --editor-link-bg-hover: rgba(30, 30, 30, 0.1);
 }
 
 .editor-wrapper {
@@ -16,23 +20,85 @@
 }
 
 
+/* EDITOR SIDEBAR */
+
 .editor-sideBar {
-    /* height: 100%; */
     min-width: 12.5rem;
-    background-color:var(--bg-dark);
+    letter-spacing: 0.075rem;
+    background-color:var(--editor-sidebar-bg-dark);
+}
+.side-nav {
+    height: 80%;
+    margin-top: 3rem;
+
+}
+.editor-sideBar .navbar-nav {
+    height: 33%;
+    /* margin-bottom: 10rem; */
+}
+
+.editor-sideBar button {
+    border: 0;
+    background-color: var(--editor-btn-bg);
+    margin: 4rem 1.7rem;
+}
+.editor-sideBar li:hover {
+    background-color: var(--editor-link-bg-hover);
+}
+.editor-sideBar .nav-item {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+.editor-sideBar .nav-link {
+    color: white; 
+    width: 100%;
+    /* height: 100%; Remove this line */
+    padding: 1.7rem !important; /* Adjust the padding as needed */
+  }
+
+
+.editor-sideBar .active {
+    background-color: var(--editor-body-bg-color);
+    color: var(--editor-sidebar-bg-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
 
 }
 
+
+/* ====== */
+/* EDITOR MAIN */
+
+
+/* EDITOR TITLE */
+.editor-section-title {
+    font-family: 'Fira Mono', monospace;
+    margin-top: 2.7rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    letter-spacing: 0.15rem;
+}
+.editor-section-title::before,
+.editor-section-title::after {
+    content: "_";
+}
+
+/* EDITOR TEXTAREA */
+
 .editor-textArea {
-    
+    outline: none;
     border: 0;
     width: 100% !important;
-    padding: 1.2em;
-    background-color: var(--bg-textArea-lighter);
-    /* white-space: nowrap;   */
+    padding: 0.4em 0.8em;
+    margin: 1rem 0rem 0rem 0rem;
+    background-color: var(--editor-textArea-bg-lighter);
     overflow-x: auto;   
     overflow-y:visible;     /* Enables vertical scrollbar when content overflows */
-    resize: none;         /* Disables resizing */
+    resize: none;           /* Disables resizing */
     box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
+.editor-textArea:hover {
+    
+}

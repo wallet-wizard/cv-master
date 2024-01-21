@@ -11,7 +11,7 @@ export default function EditorEdu() {
 
     return(
         <div className="d-block Editor-edu">
-            <h3>Education</h3>
+            <h3 className='editor-section-title'>Education</h3>
             <CustomTextarea name={"edu"} id="edu" rows={eduLength} defaultValue={edu} setTitle={(event) => setText(event, setNewCV)} />
         </div>
     )
