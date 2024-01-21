@@ -107,7 +107,6 @@ export const GlobalContextProvider = ({ children }) => {
     return;
   };
 
-
   // Sets [name]: value to stateful object
   const setText = ({ event, setState, index }) => {
     const { id, name, value } = event.target;
@@ -259,7 +258,7 @@ export const GlobalContextProvider = ({ children }) => {
       updateCVMCurrentUser,
       authenticated,
       setAuthenticated,
-      logout
+      logout,
     }}>
       {children}
     </GlobalContext.Provider>
