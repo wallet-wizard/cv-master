@@ -45,7 +45,7 @@ body {
 @media screen {
   body {
     margin: 0 auto;
-    margin-top: var(--navbar-height)
+    /* margin-top: var(--navbar-height) */
   }
 }
 

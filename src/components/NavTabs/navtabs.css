@@ -31,15 +31,16 @@
 
 
 /* Landscape mode styles */
-@media screen {
+@media screen and (max-width: 767px) {
     .navtabs-nav {
-        position: fixed;
-        background-color: rgb(255, 255, 255, 0.5) !important;
+        position: sticky;
+        background-color: rgb(255, 255, 255, 0.5);
         width: 100%;
+        z-index: 10000;
 
     }
     .navbar-collapse {
-        background-color: rgba(247, 247, 247, 0.97) !important;
+        background-color: rgba(247, 247, 247, 0.97);
     }
 
   }
