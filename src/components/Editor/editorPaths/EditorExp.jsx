@@ -9,6 +9,8 @@ export default function EditorExp() {
     const { newCV, setNewCV, setText } = useGlobalContext()
 
 
+
+
     return(
         <div className="d-block Editor-exp">
             <h3 className='editor-section-title'>Experience</h3>

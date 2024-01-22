@@ -19,10 +19,12 @@ function CustomTextarea(props) {
           ref={textAreaRef}
           id={`${id}-${props.id ? props.id : ""}`}
           onChange={(event) => handleChange(event)}
-          placeholder="## Enter markdown text.."
+          placeholder={props.placeholder || "## Enter markdown text.."}
           className='editor-textArea'
           defaultValue={props.defaultValue ? props.defaultValue : ""}
           name={props.name}
+          draggable={props.draggable || false}
+          onDragStart={props.onDragStart}
         />
       </div>
 
