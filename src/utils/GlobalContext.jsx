@@ -75,11 +75,21 @@ export const GlobalContextProvider = ({ children }) => {
 
   // Sets [name]: value to stateful object
   const setText = ({ event, setState, index }) => {
+
     const { id, name, value } = event.target;
     const nameArr = name.split('-');
 
     setState((prev) => {
       if (nameArr.length === 1) {
+
+        // Check if name is 'CVTitle' and handle
+        if (nameArr[0] === 'CVTitle') {
+          return {
+            ...prev,
+            stagingCVTitle: value
+          }
+        }
+
         return {
           ...prev,
           stagingCV: {
@@ -135,9 +145,9 @@ export const GlobalContextProvider = ({ children }) => {
   // SAVE TO LOCAL STORAGE FUNCTIONALITY
 
   // Saves CV to userCV array in localStorage
-  function saveCV(CVTitle=null) {
-
-    CVTitle = prompt("CV Title?")
+  function saveCV() {
+    // Check if CV Title exists, prompt user if not
+    const CVTitle = userData.stagingCVTitle || prompt("CV Title?")
     if (!CVTitle) {
       return;
     }
@@ -214,6 +224,7 @@ export const GlobalContextProvider = ({ children }) => {
             signupDate: new Date(),
           },
           stagingCV: initialStaging,
+          stagingCVTitle: '',
           userCVs: []
         });
       }

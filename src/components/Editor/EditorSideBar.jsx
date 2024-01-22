@@ -1,10 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useGlobalContext } from '../../utils/GlobalContext';
+import Dropdown from 'react-bootstrap/Dropdown';
 
-const EditorSideBar = (props) => {
-  const { authenticated, setAuthenticated, updateLocalStorage, getLocalStorage, saveCV } = useGlobalContext();
-  const strr = { one: "AFSFAGDFHADFHG", two: "asfasasf" }
+
+const links = [
+  { name: 'New CV', path: '/editor' },
+  { name: 'Basic Info', path: 'basic-info' },
+  { name: 'Skills', path: 'skills' },
+  { name: 'Experience', path: 'experience' },
+  { name: 'Education', path: 'education' },
+  { name: 'Other', path: 'other' },
+];
+
+export const EditorSideBar = (props) => {
+  const { saveCV } = useGlobalContext();
   const [activeElement, setActiveElement] = useState(null)
 
   function updateActiveLink(e) {
@@ -13,26 +23,20 @@ const EditorSideBar = (props) => {
     setActiveElement(name);
   }
 
+  const navElements = links.map((link, index) => {
+    return (
+      <li key={`link-${index}`} className="nav-item d-flex justify-content-center align-items-center">
+        <Link name={link.name} onClick={(e) => updateActiveLink(e)} to={link.path} className={`nav-link p-0 ${activeElement === link.path ? 'active' : ''}`}>{link.name}</Link>
+      </li>
+    )
+  })
+
   return (
     <aside className='editor-sideBar d-none d-md-flex flex-column justify-content-between m-0 p-0 col-2'>
       <button className="btn btn-primary">PREVIEW</button>
       <nav className="navbar d-block side-nav">
         <ul className='navbar-nav align-items-center justify-content-evenly'>
-          <li className="nav-item d-flex justify-content-center align-items-center">
-            <Link name="basic-info" onClick={(e) => updateActiveLink(e) } to="basic-info" className={`nav-link p-0 ${activeElement === 'basic-info' ? 'active': ''}`}>Basic Info</Link>
-          </li>
-          <li className="nav-item d-flex justify-content-center align-items-center">
-            <Link name="skills" onClick={(e) => updateActiveLink(e) } to="skills" className={`nav-link p-0 ${activeElement === 'skills' ? 'active': ''}`}>Skills</Link>
-          </li>
-          <li className="nav-item d-flex justify-content-center align-items-center">
-            <Link name="experience" onClick={(e) => updateActiveLink(e) } to="experience" className={`nav-link p-0 ${activeElement === 'experience' ? 'active': ''}`}>Experience</Link>
-          </li>
-          <li className="nav-item d-flex justify-content-center align-items-center">
-            <Link name="education" onClick={(e) => updateActiveLink(e) } to="education" className={`nav-link p-0 ${activeElement === 'education' ? 'active': ''}`}>Education</Link>
-          </li>
-          <li className="nav-item d-flex justify-content-center align-items-center">
-            <Link name="other" onClick={(e) => updateActiveLink(e) } to="other" className={`nav-link p-0 ${activeElement === 'other' ? 'active': ''}`}>Other</Link>
-          </li>
+          {navElements}
         </ul>
       </nav>
 
@@ -41,4 +45,45 @@ const EditorSideBar = (props) => {
   );
 };
 
-export default EditorSideBar;
+// Adopded from 'react-bootstrap' and modified
+// https://getbootstrap.com/docs/4.0/components/dropdowns/
+export const EditorSideBtn = () => {
+  const { saveCV } = useGlobalContext();
+  const navigate = useNavigate();
+
+  const [activeElement, setActiveElement] = useState(null);
+
+  function updateActiveLink(name) {
+    setActiveElement(name);
+  }
+
+  function handleLinkClick(path) {
+    updateActiveLink(path);
+    navigate(path); // Use the navigate function from react-router-dom to programmatically navigate
+  }
+
+  return (
+
+    <Dropdown>
+      <Dropdown.Toggle variant="success" id="dropdown-basic">
+        SECTION
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu>
+        {links.map((link) => (
+          <Dropdown.Item
+            key={link.path}
+            onClick={() => handleLinkClick(link.path)}
+            className={activeElement === link.name ? 'active' : ''}
+          >
+            {link.name}
+          </Dropdown.Item>
+        ))}
+      </Dropdown.Menu>
+
+      <button onClick={saveCV} className="btn btn-primary save-cv-btn">
+        SAVE CV
+      </button>
+    </Dropdown>
+  );
+};
