@@ -11,7 +11,7 @@ export default function EditorOther() {
 
     return(
         <div className="d-block Editor-other">
-            <h3>Other Bits</h3>
+            <h3 className='editor-section-title'>Other Bits</h3>
             <CustomTextarea name={"other"} id="other" rows={otherLength} defaultValue={other} setTitle={(event) => setText(event, setNewCV)} />
         </div>
     )

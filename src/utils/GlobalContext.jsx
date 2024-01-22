@@ -18,19 +18,22 @@ export const GlobalContextProvider = ({ children }) => {
   // User Data
   const [userData, setUserData] = useState({
     userData: {
-      username: 'userTest1',
+      username: '',
       signupDate: new Date(),
     },
     stagingCV: {
       title: '',
       summary: '',
       skills: {
-        header: '### Skills',
+        header: '## Skills',
         skills: []
       },
       experience: {
         header: '### Work Experience',
-        experience: []
+        experience: {
+          header: '## Work Experience',
+          experience: []
+        }
       },
       education: [],
     },
@@ -107,15 +110,13 @@ export const GlobalContextProvider = ({ children }) => {
     return;
   };
 
-
   // Sets [name]: value to stateful object
   const setText = ({ event, setState, index }) => {
     const { id, name, value } = event.target;
-
     const nameArr = name.split('-');
-
-    if (nameArr.length === 1) {
-      setState((prev) => {
+  
+    setState((prev) => {
+      if (nameArr.length === 1) {
         return {
           ...prev,
           stagingCV: {
@@ -123,46 +124,43 @@ export const GlobalContextProvider = ({ children }) => {
             [name]: value,
           },
         };
-      });
-    }
-
-    if (nameArr[1] === "header") {
-      setState(prev => {
+      }
+  
+      if (nameArr[1] === "header") {
         return {
           ...prev,
           stagingCV: {
             ...prev.stagingCV,
             [nameArr[0]]: {
               ...prev.stagingCV[nameArr[0]],
-              [nameArr[1]]: value
-            }
-          }
-        }
-      })
-    }
-
-    if (nameArr[1] === "item") {
-      console.log("Cominng..")
-      console.log(index)
-      setState(prev => {
-        const arr = prev.stagingCV[nameArr[0]][nameArr[0]]
+              [nameArr[1]]: value,
+            },
+          },
+        };
+      }
+  
+      if (nameArr[1] === "item") {
+        console.log("Coming...");
+        console.log(index);
+        const arr = prev.stagingCV[nameArr[0]][nameArr[0]];
         const arrLength = arr.length;
-        const newArr = [...arr, value]
+        const newArr = [...arr, value];
         return {
           ...prev,
           stagingCV: {
             ...prev.stagingCV,
             [nameArr[0]]: {
               ...prev.stagingCV[nameArr[0]],
-              [nameArr[0]]: arrLength < 1 ? newArr : [...arr.slice(0, index), value, ...arr.slice(index + 1)]
-            }
-          }
-        }
-      })
-    }
-
-  }
-
+              [nameArr[0]]: arrLength < 1 ? newArr : [...arr.slice(0, index), value, ...arr.slice(index + 1)],
+            },
+          },
+        };
+      }
+  
+      // Return the previous state if none of the conditions match
+      return prev;
+    });
+  };
 
 
 
@@ -207,10 +205,13 @@ export const GlobalContextProvider = ({ children }) => {
             title: '',
             summary: '',
             skills: {
-              header: '### Skills',
+              header: '## Skills',
               skills: stageSkills
             },
-            experience: sampleExp,
+            experience: {
+              header: '## Work Experience',
+              experience: sampleExp
+            },
             education: [],
           },
           userCVs: []
@@ -227,23 +228,16 @@ export const GlobalContextProvider = ({ children }) => {
 
   // Default Data:
   const stageSkills = [
-    `- **Languages:** HTML, CSS, JavaScript`,
-    `- **Frameworks/Libraries:** React, Vite`,
-    `- **Responsive Design:** Bootstrap, CSS Grid, Flexbox`,
-    `- **Version Control:** Git, GitHub`,
-    `- **Build Tools:** Webpack, npm, Vite`,
-    `- **Testing:** Jest, Enzyme`,
-    `- **UI/UX Design:** Figma, Adobe XD`,
-    `- **Web Performance Optimization**`
+    1,2,3,4,5
 
   ]
 
-  const sampleExp = `### Senior Front-end Developer | [Company Name] | [Location] | [Month Year] - Present
+  const sampleExp = [`### Senior Front-end Developer | [Company Name] | [Location] | [Month Year] - Present
   
   - Led the development of [Project Name], resulting in [specific achievements].
   - Collaborated with the design team to implement pixel-perfect and responsive user interfaces.
   - Implemented performance optimizations, reducing page load times by [percentage].
-  - Mentored junior developers, conducting code reviews and providing technical guidance.`
+  - Mentored junior developers, conducting code reviews and providing technical guidance.`]
 
 
   return (
@@ -259,7 +253,7 @@ export const GlobalContextProvider = ({ children }) => {
       updateCVMCurrentUser,
       authenticated,
       setAuthenticated,
-      logout
+      logout,
     }}>
       {children}
     </GlobalContext.Provider>
