@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useGlobalContext } from '../../utils/GlobalContext';
 
 const EditorSideBar = (props) => {
-  const { authenticated, setAuthenticated, updateLocalStorage, getLocalStorage } = useGlobalContext();
+  const { authenticated, setAuthenticated, updateLocalStorage, getLocalStorage, saveCV } = useGlobalContext();
   const strr = { one: "AFSFAGDFHADFHG", two: "asfasasf" }
   const [activeElement, setActiveElement] = useState(null)
 
@@ -12,7 +12,6 @@ const EditorSideBar = (props) => {
     console.log(name);
     setActiveElement(name);
   }
-  
 
   return (
     <aside className='editor-sideBar d-none d-md-flex flex-column justify-content-between m-0 p-0 col-2'>
@@ -37,7 +36,7 @@ const EditorSideBar = (props) => {
         </ul>
       </nav>
 
-      <button onClick={() => setAuthenticated(!authenticated)} className="btn btn-primary save-cv-btn">SAVE CV</button>
+      <button onClick={() => saveCV()} className="btn btn-primary save-cv-btn">SAVE CV</button>
     </aside>
   );
 };

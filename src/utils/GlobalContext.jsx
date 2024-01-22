@@ -1,7 +1,17 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { initialStaging } from './defaultValues';
+
+import {
+  getLocalStorage,
+  updateLocalStorage,
+  getCVMCurrentUser,
+  getCVMDatabase,
+  updateCVMCurrentUser,
+  logout
+} from './helperLocalStorage';
 
 
-// We are initializing the Context
+// We are creating / initializing the Context first
 const GlobalContext = createContext();
 
 
@@ -15,60 +25,12 @@ allowing any components wrapped with EditorProvider
 to access the provided context).
 */
 export const GlobalContextProvider = ({ children }) => {
-  // User Data
-  const [userData, setUserData] = useState({
-    userData: {
-      username: '',
-      signupDate: new Date(),
-    },
-    stagingCV: {
-      title: '',
-      summary: '',
-      skills: {
-        header: '## Skills',
-        skills: []
-      },
-      experience: {
-        header: '### Work Experience',
-        experience: {
-          header: '## Work Experience',
-          experience: []
-        }
-      },
-      education: [],
-    },
-    userCVs: []
-  })
 
+  // Global States
+  const [userData, setUserData] = useState(null)
   const [authenticated, setAuthenticated] = useState(false);
 
 
-  // Function to get data from any localStorage key
-  const getLocalStorage = (key) => {
-    const storedValue = localStorage.getItem(key);
-    return storedValue ? JSON.parse(storedValue) : null;
-  };
-
-  // Function to update data of any localStorage key
-  const updateLocalStorage = (key, data) => {
-    localStorage.setItem(key, JSON.stringify(data));
-  };
-
-  // Function to get CV-Master DB from localStorage
-  const getCVMDatabase = () => {
-    const storedValue = localStorage.getItem('CVMDatabase');
-    return storedValue ? JSON.parse(storedValue) : null;
-  };
-
-  // Function to get CV-Master logged-in user from localStorage
-  const getCVMCurrentUser = () => {
-    const storedValue = localStorage.getItem('CVMCurrentUser');
-    return storedValue ? storedValue : null;
-  };
-
-  const updateCVMCurrentUser = (username) => {
-    localStorage.setItem('CVMCurrentUser', username);
-  }
 
   // Function to update CV-Master DB in localStorage
   const updateCVMDatabase = (data) => {
@@ -76,7 +38,6 @@ export const GlobalContextProvider = ({ children }) => {
       console.Error("Error updating new Data to local Storage. Data should be type: 'object");
       return;
     }
-
     // Get current Database
     let CVMDatabase = getCVMDatabase();
 
@@ -86,13 +47,11 @@ export const GlobalContextProvider = ({ children }) => {
       localStorage.setItem('CVMDatabase', JSON.stringify(CVMDatabase));
       return;
     }
-
     // Get current username
     const username = getCVMCurrentUser();
     if (!username) {
       setAuthenticated(false);
     }
-
     // Check if username exists in current database
     const existingIndex = CVMDatabase.findIndex(obj => obj.userData.username === username);
 
@@ -110,11 +69,15 @@ export const GlobalContextProvider = ({ children }) => {
     return;
   };
 
+
+
+  // State updaters
+
   // Sets [name]: value to stateful object
   const setText = ({ event, setState, index }) => {
     const { id, name, value } = event.target;
     const nameArr = name.split('-');
-  
+
     setState((prev) => {
       if (nameArr.length === 1) {
         return {
@@ -125,7 +88,7 @@ export const GlobalContextProvider = ({ children }) => {
           },
         };
       }
-  
+
       if (nameArr[1] === "header") {
         return {
           ...prev,
@@ -138,10 +101,9 @@ export const GlobalContextProvider = ({ children }) => {
           },
         };
       }
-  
+
       if (nameArr[1] === "item") {
-        console.log("Coming...");
-        console.log(index);
+        console.log("Updating Item...", index);
         const arr = prev.stagingCV[nameArr[0]][nameArr[0]];
         const arrLength = arr.length;
         const newArr = [...arr, value];
@@ -156,7 +118,6 @@ export const GlobalContextProvider = ({ children }) => {
           },
         };
       }
-  
       // Return the previous state if none of the conditions match
       return prev;
     });
@@ -164,9 +125,65 @@ export const GlobalContextProvider = ({ children }) => {
 
 
 
+  // Helper functions
 
-  // RUNS ON EVERY APP REFRESH
+  function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+
+  // SAVE TO LOCAL STORAGE FUNCTIONALITY
+
+  // Saves CV to userCV array in localStorage
+  function saveCV(CVTitle=null) {
+
+    CVTitle = prompt("CV Title?")
+    if (!CVTitle) {
+      return;
+    }
+
+    // 1. Create new-CV Object
+    const newCV = {
+      title: [CVTitle],
+      lastModified: new Date(),
+      data: {
+        ...initialStaging
+      }
+    }
+
+    // Update if CV Title exists - TBC
+
+    // Update "local" userData
+    const newUserData = {
+      ...userData,
+      userCVs: [
+        ...userData.userCVs,
+        newCV
+      ],
+      stagingCV: {
+        ...userData.stagingCV
+      }
+    }
+    setUserData((prev) => newUserData);
+
+    // Update localStorage
+    updateCVMDatabase(newUserData)
+
+    // Console log:
+    console.log("DB Updated:")
+    console.log(getCVMDatabase())
+  }
+
+
+  
+  // RUNS ON EVERY APP REFRESH + ON USER CHANGE
   useEffect(() => {
+    if (!authenticated) {
+      console.log("Not authenticated. Returning...")
+      return;
+    } else {
+      console.log("User authenticated.")
+    }
     const currentUser = getCVMCurrentUser();
     const CVMDatabase = getCVMDatabase();
 
@@ -177,12 +194,8 @@ export const GlobalContextProvider = ({ children }) => {
 
     // Check if current user is set
     if (!currentUser) {
-      // Prompt user with login component
-      // You can implement this logic here
-      // For example, set a state to show a login modal
-      // or navigate to a login page
-
       console.log('User not set. Prompting for login...');
+      return;
     } else {
       // User is set, check if user exists in the database
       const userExists = CVMDatabase.some(obj => obj.userData.username === currentUser);
@@ -195,49 +208,17 @@ export const GlobalContextProvider = ({ children }) => {
         setUserData(userDataFromDB);
       } else {
         // User is new, initiate a new stateful object
-        // You might want to customize this based on your requirements
         setUserData({
           userData: {
             username: currentUser,
             signupDate: new Date(),
           },
-          stagingCV: {
-            title: '',
-            summary: '',
-            skills: {
-              header: '## Skills',
-              skills: stageSkills
-            },
-            experience: {
-              header: '## Work Experience',
-              experience: sampleExp
-            },
-            education: [],
-          },
+          stagingCV: initialStaging,
           userCVs: []
         });
       }
     }
-
-  }, []);
-
-  const logout = () => {
-    localStorage.removeItem('CVMCurrentUser');
-    window.location.reload();
-  }
-
-  // Default Data:
-  const stageSkills = [
-    1,2,3,4,5
-
-  ]
-
-  const sampleExp = [`### Senior Front-end Developer | [Company Name] | [Location] | [Month Year] - Present
-  
-  - Led the development of [Project Name], resulting in [specific achievements].
-  - Collaborated with the design team to implement pixel-perfect and responsive user interfaces.
-  - Implemented performance optimizations, reducing page load times by [percentage].
-  - Mentored junior developers, conducting code reviews and providing technical guidance.`]
+  }, [authenticated]);
 
 
   return (
@@ -254,6 +235,8 @@ export const GlobalContextProvider = ({ children }) => {
       authenticated,
       setAuthenticated,
       logout,
+      capitalize,
+      saveCV
     }}>
       {children}
     </GlobalContext.Provider>

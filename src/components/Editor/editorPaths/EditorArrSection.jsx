@@ -5,22 +5,28 @@ import { useGlobalContext } from '../../../utils/GlobalContext';
 
 export default function EditorArrSection(props) {
 
+  // Importing hooks and props
   const { section } = props
-
-  const { setText, userData, setUserData } = useGlobalContext();
-  const [sectionArr, setSectionArr] = useState(userData.stagingCV[section][section] || ["", ""]);
+  const { setText, userData, setUserData, capitalize } = useGlobalContext();
+  const [sectionArr, setSectionArr] = useState(userData.stagingCV[section][section] || []);
   const dragItem = useRef(null);
   const dragOverItem = useRef(null);
 
+
+  // Refresh page on userData updates
   useEffect(() => {
-    console.log("RAN")
-    console.log(userData.stagingCV[section][section])
-    setSectionArr(userData.stagingCV[section][section] || ["", ""]);
+    setSectionArr((prevArr) => {
+      return (
+        userData['stagingCV'][section][section] || []
+      )
+    });
   }, [section, userData.stagingCV]);
 
-  const sectionEl = userData.stagingCV[section][section].map((sectionItem, index) => (
+
+  // Create section Elements
+  const sectionEl = sectionArr.map((sectionItem, index) => (
     <div
-      key={index}
+      key={`${section}-${index}`}
       draggable={true}
       onDragStart={(e) => dragItem.current = index}
       onDragEnter={(e) => dragOverItem.current = index}
@@ -30,7 +36,7 @@ export default function EditorArrSection(props) {
       <CustomTextarea
         name={`${section}-item`}
         id={`${section}-item-${index}`}
-        defaultValue={sectionItem}
+        value={sectionItem}
         updateValue={(event) => setText({ event, setState: setUserData, index })}
         placeholder={`-**New ${section} Item**`}
       />
@@ -39,11 +45,7 @@ export default function EditorArrSection(props) {
   ))
   
   
-  console.log(sectionEl)
-  
-  
   // Drag n Drop functionality
-
   function handleOnDragEnd(e) {
     handleSort();
   }
@@ -69,6 +71,7 @@ export default function EditorArrSection(props) {
   };
 
 
+  // Textarea functionality
   function addTextarea() {
     setSectionArr(prev => [...prev, ['']]);
     setUserData((prev) => {
@@ -88,6 +91,7 @@ export default function EditorArrSection(props) {
 
   function removeTextarea(index) {
     const updatedSection = sectionArr.filter((_, i) => i !== index);
+    console.log("updatedSection:", updatedSection)
     setSectionArr(updatedSection);
     setUserData((prev) => ({
       ...prev,
@@ -101,16 +105,20 @@ export default function EditorArrSection(props) {
     }));
   }
 
-  function capitalize(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
 
+  // // Helper functions
+  // function capitalize(str) {
+  //   return str.charAt(0).toUpperCase() + str.slice(1);
+  // }
+
+
+  // Returns 
   const header = userData.stagingCV[section].header ? userData.stagingCV[section].header : `## ${capitalize(section)}`;
 
   return (
     <div className={`d-block Editor-${section}`}>
       <h3 className='editor-section-title'>{capitalize(section)}</h3>
-      <CustomTextarea name={`${section}-header`} id={`${section}-header`} defaultValue={header} updateValue={(event) => setText({ event, setState: setUserData })} />
+      <CustomTextarea name={`${section}-header`} id={`${section}-header`} value={header} updateValue={(event) => setText({ event, setState: setUserData })} />
       <div droppable="true" className='draggableArea'>
         {sectionEl}
       </div>
