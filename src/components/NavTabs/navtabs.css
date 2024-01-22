@@ -9,7 +9,6 @@
     /* --navbar-height can be updated in ./utils/globalStyles.css */
     height: var(--navbar-height);
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
-
   }
 
 .navtabs-nav .navbar-brand {
@@ -21,3 +20,44 @@
 .navtabs-nav .nav-link {
     font-family: 'Oxygen', sans-serif;
 }       
+
+/* NAVBAR - COLLAPSE */
+
+.navbar-collapse {
+    background-color: white;
+}
+
+
+
+
+/* Landscape mode styles */
+@media screen {
+    .navtabs-nav {
+        position: fixed;
+        background-color: rgb(255, 255, 255, 0.5) !important;
+        width: 100%;
+
+    }
+    .navbar-collapse {
+        background-color: rgba(247, 247, 247, 0.97) !important;
+    }
+
+  }
+
+
+
+/* Landscape mode styles */
+@media screen and (orientation: landscape) {
+    .navtabs-nav {
+        /* background-color: rgba(255, 255, 255, 0.1); */
+        letter-spacing: 1.3px;
+        /* --navbar-height can be updated in ./utils/globalStyles.css */
+        height: var(--navbar-height-landscape);
+        box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+        position: relative !important;
+      }
+    
+      .navbar-collapse {
+        background-color: rgb(255, 255, 255, 0.1);
+    }
+  }

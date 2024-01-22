@@ -1,25 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
-import './navtabs.css'
+import './navtabs.css';
 
 function NavTabs() {
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const navbarRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (navbarRef.current && !navbarRef.current.contains(event.target)) {
+        // Click occurred outside the navbar, close the menu
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
 
+  const toggleActive = () => {
+    setMenuOpen(false);
+  };
+
   return (
-    <nav className="navtabs-nav navbar navbar-expand-sm navbar-light bg-light sticky-top">
+    <nav ref={navbarRef} className="navtabs-nav navbar navbar-expand-sm sticky-top">
       <NavLink to="/" className="navbar-brand">
         CV Master
       </NavLink>
 
-      <button
-        className="navbar-toggler"
-        type="button"
-        onClick={toggleMenu}
-      >
+      <button className="navbar-toggler" type="button" onClick={toggleMenu}>
         <span className="navbar-toggler-icon"></span>
       </button>
 
