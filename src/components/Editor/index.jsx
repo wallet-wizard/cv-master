@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './editor.css';
 import EditorMain from './EditorMain';
-import EditorSideBar from './EditorSideBar';
+import {EditorSideBar, EditorSideBtn} from './EditorSideBar';
 import { usePreventReload } from '../../utils/usePreventReload'
 
 export default function Editor() {

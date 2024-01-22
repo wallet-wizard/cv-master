@@ -9,6 +9,8 @@
     --editor-btn-bg: rgb(135, 149, 202);
     --editor-body-bg-color: rgb(248, 248, 248);
     --editor-link-bg-hover: rgba(30, 30, 30, 0.1);
+    --editor-newCV-btn-bg: rgb(77, 83, 98);
+    --editor-newCV-btn-text: rgb(246, 246, 246);
 }
 
 .editor-wrapper {
@@ -67,6 +69,23 @@
 }
 
 
+/* NAVIGATION BTN */
+
+.editor-wrapper .dropdown {
+    /* background-color: var(--editor-btn-bg); */
+    margin: 1rem;
+    padding: 0 !important;
+    font-family: 'Oxygen', sans-serif;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.editor-wrapper .dropdown button {
+    background-color: var(--editor-btn-bg);
+    border: none;
+    min-width: 30%;
+}
+
 /* ====== */
 /* EDITOR MAIN */
 
@@ -99,6 +118,45 @@
     box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
-.editor-textArea:hover {
-    
+
+/* EDITOR NEW-CV */
+.editor-NewCV {
+    font-family: 'Oxygen', sans-serif;
+    margin-top: 4rem;
+    height: 30vh;
+}
+
+.editor-NewCV h3 {
+    font-family: 'Kaushan Script', cursive;
+    font-size: 1.8rem;
+    max-width: 10rem;
+}
+
+.editor-NewCV .input-div {
+    width: 80%;
+    height: 2.5rem;
+}
+.editor-NewCV .input-div label{
+    font-family: 'Kaushan Script', cursive;
+    background-color: var(--editor-newCV-btn-bg);
+    padding: 0px 0.5rem;
+    color: var(--editor-newCV-btn-text);
+    font-size: larger;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.4);
+}
+.editor-NewCV .input-div input{
+    outline: none;
+    border: 0px;
+    padding: 0px 0.5rem;
+    color: var(--editor-newCV-btn-bg);
+    width: 70%;
+    box-shadow: 1px 2px 0px 0px rgba(0, 0, 0, 0.4);
+}
+
+.editor-NewCV .btn-get-started {
+    margin-top: 2.4rem;
+    background-color: var(--editor-btn-bg) !important;
+
 }

@@ -32,6 +32,9 @@ export default function EditorArrSection(props) {
       onDragEnter={(e) => dragOverItem.current = index}
       onDragEnd={handleOnDragEnd}
       onDragOver={(e) => e.preventDefault()}
+      onTouchStart={(e) => dragItem.current = index}
+      onTouchMove={(e) => dragOverItem.current = index}
+      onTouchEnd={handleOnDragEnd}
     >
       <CustomTextarea
         name={`${section}-item`}
