@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useGlobalContext } from '../../utils/GlobalContext';
 import Dropdown from 'react-bootstrap/Dropdown';
+import PreviewModal from './previewModal';
 
 
 const links = [
@@ -16,6 +17,10 @@ const links = [
 export const EditorSideBar = (props) => {
   const { saveCV } = useGlobalContext();
   const [activeElement, setActiveElement] = useState(null)
+  const [showModal, setShowModal] = useState(false);
+
+  const handleShow = () => setShowModal(true);
+  const handleClose = () => setShowModal(false);
 
   function updateActiveLink(e) {
     const { name } = e.target;
@@ -33,14 +38,15 @@ export const EditorSideBar = (props) => {
 
   return (
     <aside className='editor-sideBar d-none d-md-flex flex-column justify-content-between m-0 p-0 col-2'>
-      <button className="btn btn-primary">PREVIEW</button>
+      <PreviewModal showModal={showModal} handleClose={handleClose} />
+      <button variant="primary" onClick={handleShow} className="btn btn-primary">PREVIEW</button>
       <nav className="navbar d-block side-nav">
         <ul className='navbar-nav align-items-center justify-content-evenly'>
           {navElements}
         </ul>
       </nav>
 
-      <button onClick={() => saveCV()} className="btn btn-primary save-cv-btn">SAVE CV</button>
+      <button onClick={saveCV} className="btn btn-primary save-cv-btn">SAVE CV</button>
     </aside>
   );
 };
@@ -50,8 +56,11 @@ export const EditorSideBar = (props) => {
 export const EditorSideBtn = () => {
   const { saveCV } = useGlobalContext();
   const navigate = useNavigate();
-
   const [activeElement, setActiveElement] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleShow = () => setShowModal(true);
+  const handleClose = () => setShowModal(false);
 
   function updateActiveLink(name) {
     setActiveElement(name);
@@ -63,7 +72,8 @@ export const EditorSideBtn = () => {
   }
 
   return (
-
+    <>
+    <PreviewModal showModal={showModal} handleClose={handleClose} />
     <Dropdown>
       <Dropdown.Toggle variant="success" id="dropdown-basic">
         SECTION
@@ -81,9 +91,10 @@ export const EditorSideBtn = () => {
         ))}
       </Dropdown.Menu>
 
-      <button onClick={saveCV} className="btn btn-primary save-cv-btn">
-        SAVE CV
+      <button onClick={handleShow} className="btn btn-primary save-cv-btn">
+        PREVIEW
       </button>
     </Dropdown>
+    </>
   );
 };
