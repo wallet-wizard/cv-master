@@ -7,11 +7,13 @@ export default function EditorArrSection(props) {
 
   // Importing hooks and props
   const { section } = props
-  const { setText, userData, setUserData, capitalize } = useGlobalContext();
+  const { setText, userData, setUserData, capitalize, setHideEditorOptions, hideEditorOptions } = useGlobalContext();
   const [sectionArr, setSectionArr] = useState(userData.stagingCV[section][section] || []);
   const dragItem = useRef(null);
   const dragOverItem = useRef(null);
 
+  // Show editor options
+  setHideEditorOptions(false);
 
   // Refresh page on userData updates
   useEffect(() => {

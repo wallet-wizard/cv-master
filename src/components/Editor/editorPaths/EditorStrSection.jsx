@@ -6,9 +6,12 @@ import { useGlobalContext } from '../../../utils/GlobalContext'
 
 export default function EditorStrSection(props) {
 
-    const { setText, userData, setUserData, capitalize } = useGlobalContext()
+    const { setText, userData, setUserData, capitalize, hideEditorOptions, setHideEditorOptions } = useGlobalContext()
     const { section, elements } = props
     
+    // Show editor options
+    setHideEditorOptions(false);
+
     // Create elements from prop's arr
     const render = elements.map((el, index) => {
         const value = userData.stagingCV[el];

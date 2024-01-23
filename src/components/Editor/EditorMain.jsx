@@ -5,9 +5,9 @@ import EditorNewCV from './editorPaths/EditorNewCV';
 import { EditorSideBtn } from './EditorSideBar';
 
 export default function Editor() {
+
   return (
-    <div className="col">
-        <EditorSideBtn />
+    <div className="col editor-main">
         <Routes>
             <Route path="/" element={<EditorNewCV key="/editor" />} />
             <Route path="basic-info" element={<EditorStrSection key="basic-info" section="basic info" elements={["title", "summary"]} />} />
