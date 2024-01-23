@@ -194,12 +194,15 @@ export const GlobalContextProvider = ({ children }) => {
     } else {
       console.log("User authenticated.")
     }
+
     const currentUser = getCVMCurrentUser();
-    const CVMDatabase = getCVMDatabase();
+    let CVMDatabase = getCVMDatabase();
 
     // Create CVMDatabase if it doesn't exist
     if (!CVMDatabase) {
+      console.log("NO DATABASE!, creating new..")
       updateLocalStorage('CVMDatabase', []);
+      CVMDatabase = getCVMDatabase();
     }
 
     // Check if current user is set
