@@ -17,9 +17,10 @@
     background-color: var(--editor-body-bg-color);
     height: calc(100vh - var(--navbar-height));
 }
-.editor-wrapper .row {
-
-    height: 100%;
+.editor-wrapper aside {
+    /* position: fixed; */
+    z-index: 1000;
+    height: calc(100vh - var(--navbar-height));
 }
 
 
@@ -27,16 +28,16 @@
 
 .editor-sideBar {
     min-width: 12.5rem;
+    min-height: calc(100vh - var(--navbar-height));
     letter-spacing: 0.075rem;
     background-color:var(--editor-sidebar-bg-dark);
 }
 .side-nav {
-    height: 80%;
-    margin-top: 3rem;
+    /* margin-top: 7rem; */
 
 }
 .editor-sideBar .navbar-nav {
-    height: 33%;
+    /* height: 33%; */
     /* margin-bottom: 10rem; */
 }
 
@@ -55,9 +56,9 @@
 }
 .editor-sideBar .nav-link {
     color: white; 
-    width: 100%;
+    /* width: 100%; */
     /* height: 100%; Remove this line */
-    padding: 1.7rem !important; /* Adjust the padding as needed */
+    padding: 1rem !important; 
   }
 
 .editor-sideBar .active {
@@ -160,3 +161,4 @@
     background-color: var(--editor-btn-bg) !important;
 
 }
+

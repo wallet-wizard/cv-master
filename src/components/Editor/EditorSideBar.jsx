@@ -30,8 +30,8 @@ export const EditorSideBar = (props) => {
 
   const navElements = links.map((link, index) => {
     return (
-      <li key={`link-${index}`} className="nav-item d-flex justify-content-center align-items-center">
-        <Link name={link.name} onClick={(e) => updateActiveLink(e)} to={link.path} className={`nav-link p-0 ${activeElement === link.path ? 'active' : ''}`}>{link.name}</Link>
+      <li key={`link-${index}`} className="nav-item">
+        <Link name={link.name} onClick={(e) => updateActiveLink(e)} to={link.path} className={`nav-link p-0 ${activeElement === link.name ? 'active' : ''}`}>{link.name}</Link>
       </li>
     )
   })
@@ -40,12 +40,9 @@ export const EditorSideBar = (props) => {
     <aside className='editor-sideBar d-none d-md-flex flex-column justify-content-between m-0 p-0 col-2'>
       <PreviewModal showModal={showModal} handleClose={handleClose} />
       <button variant="primary" onClick={handleShow} className="btn btn-primary">PREVIEW</button>
-      <nav className="navbar d-block side-nav">
         <ul className='navbar-nav align-items-center justify-content-evenly'>
           {navElements}
         </ul>
-      </nav>
-
       <button onClick={saveCV} className="btn btn-primary save-cv-btn">SAVE CV</button>
     </aside>
   );
@@ -72,7 +69,7 @@ export const EditorSideBtn = () => {
   }
 
   return (
-    <>
+    <div className='d-block d-md-none'>
     <PreviewModal showModal={showModal} handleClose={handleClose} />
     <Dropdown>
       <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -95,6 +92,6 @@ export const EditorSideBtn = () => {
         PREVIEW
       </button>
     </Dropdown>
-    </>
+    </div>
   );
 };

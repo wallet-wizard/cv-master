@@ -5,10 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import { useGlobalContext } from '../../../utils/GlobalContext';
 
 export default function EditorNewCV(props) {
-  const { setText, userData, setUserData } = useGlobalContext();
+  const { setText, userData, setUserData, hideEditorOptions, setHideEditorOptions } = useGlobalContext();
   const value = userData.stagingCVTitle;
   const navigate = useNavigate();
   const inputRef = useRef(null); // Create a ref for the input element
+
+  // Hide editor Selections
+  setHideEditorOptions(true)
 
   // LOGIC for submit
   function handleGetStarted(e) {

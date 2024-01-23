@@ -29,6 +29,7 @@ export const GlobalContextProvider = ({ children }) => {
   // Global States
   const [userData, setUserData] = useState(null)
   const [authenticated, setAuthenticated] = useState(false);
+  const [hideEditorOptions, setHideEditorOptions] = useState(false)
 
 
 
@@ -170,9 +171,8 @@ export const GlobalContextProvider = ({ children }) => {
         ...userData.userCVs,
         newCV
       ],
-      stagingCV: {
-        ...userData.stagingCV
-      }
+      stagingCV: initialStaging,
+      stagingCVTitle: ''
     }
     setUserData((prev) => newUserData);
 
@@ -232,6 +232,9 @@ export const GlobalContextProvider = ({ children }) => {
   }, [authenticated]);
 
 
+
+
+
   return (
     <GlobalContext.Provider value={{
       userData,
@@ -247,7 +250,9 @@ export const GlobalContextProvider = ({ children }) => {
       setAuthenticated,
       logout,
       capitalize,
-      saveCV
+      saveCV,
+      hideEditorOptions,
+      setHideEditorOptions
     }}>
       {children}
     </GlobalContext.Provider>

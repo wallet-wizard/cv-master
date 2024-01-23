@@ -1,0 +1,33 @@
+
+.PreviewModal .modal-header{
+    background-color: rgb(218, 218, 218);
+    justify-content: center;
+}
+.PreviewModal .h4{
+    font-family: 'Courier New', Courier, monospace;
+    color:rgb(63, 83, 99);
+    justify-content: center;
+}
+
+.PreviewModal .modal-body{
+    background-color: rgb(255, 255, 255);
+
+}
+
+/* Font sizes & Styling */
+
+.PreviewModal .modal-body h1{
+    font-size: 2rem;
+}
+.PreviewModal .modal-body h2{
+    font-size: 1.5rem;
+}
+.PreviewModal .modal-body h3{
+    font-size: 1.2rem;
+}
+.PreviewModal .modal-body h4{
+    font-size: 1rem;
+}
+.PreviewModal .modal-body li{
+    /* font-size: 1rem; */
+}
