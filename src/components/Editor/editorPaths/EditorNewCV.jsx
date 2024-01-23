@@ -11,7 +11,9 @@ export default function EditorNewCV(props) {
   const inputRef = useRef(null); // Create a ref for the input element
 
   // Hide editor Selections
-  setHideEditorOptions(true)
+  useEffect(()=> {
+    setHideEditorOptions(true)
+  }, [])
 
   // LOGIC for submit
   function handleGetStarted(e) {
@@ -22,12 +24,6 @@ export default function EditorNewCV(props) {
     }
   }
 
-  // Use useEffect to focus on the input when the component mounts
-  useEffect(() => {
-    if (!value && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [value]);
 
   return (
     <form onSubmit={(e) => handleGetStarted(e)} className="d-flex flex-column editor-NewCV text-center justify-content-center align-items-center">
