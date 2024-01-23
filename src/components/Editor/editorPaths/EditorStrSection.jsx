@@ -9,8 +9,10 @@ export default function EditorStrSection(props) {
     const { setText, userData, setUserData, capitalize, hideEditorOptions, setHideEditorOptions } = useGlobalContext()
     const { section, elements } = props
     
-    // Show editor options
-    setHideEditorOptions(false);
+   // Hide editor Selections
+   useEffect(()=> {
+    setHideEditorOptions(false)
+  }, [])
 
     // Create elements from prop's arr
     const render = elements.map((el, index) => {

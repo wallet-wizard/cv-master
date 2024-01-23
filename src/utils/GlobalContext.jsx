@@ -114,7 +114,6 @@ export const GlobalContextProvider = ({ children }) => {
       }
 
       if (nameArr[1] === "item") {
-        console.log("Updating Item...", index);
         const arr = prev.stagingCV[nameArr[0]][nameArr[0]];
         const arrLength = arr.length;
         const newArr = [...arr, value];
@@ -158,7 +157,7 @@ export const GlobalContextProvider = ({ children }) => {
       title: [CVTitle],
       lastModified: new Date(),
       data: {
-        ...initialStaging
+        ...userData.stagingCV
       }
     }
 
