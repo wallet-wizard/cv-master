@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useGlobalContext } from '../../utils/GlobalContext';
 import Dropdown from 'react-bootstrap/Dropdown';
-import PreviewModal from './previewModal';
+import PreviewModal from './PreviewModal';
 
 
 const links = [
