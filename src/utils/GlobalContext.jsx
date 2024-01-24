@@ -235,6 +235,49 @@ export const GlobalContextProvider = ({ children }) => {
 
 
 
+  function handleCV(index, type) {
+    const newCVarr = userData.userCVs;
+    if (!newCVarr || newCVarr.length <= 0 || index === null) {
+      console.log("Did not handle CV operation.")
+      return;
+    }
+
+    if (type === 'remove') {
+      newCVarr.splice(index, 1);
+    }
+
+    if (type === 'duplicate') {
+      console.log("It's duplicating!!")
+      console.log("Index:", index)
+      newCVarr.push(newCVarr[index])
+      console.log("This:", newCVarr)
+    }
+
+    if (type === 'modify') {
+      console.log(newCVarr[index])
+    }
+
+    
+    setUserData((prev) => {
+      const newUserData = {
+        ...prev,
+        userCVs: newCVarr
+      }
+
+      if (newUserData) {
+        // Update Local Storage
+        updateCVMDatabase(newUserData);
+  
+        return newUserData
+      } else {
+        return prev;
+      }
+    }) 
+
+  }
+  
+
+
 
 
   return (
@@ -254,7 +297,8 @@ export const GlobalContextProvider = ({ children }) => {
       capitalize,
       saveCV,
       hideEditorOptions,
-      setHideEditorOptions
+      setHideEditorOptions,
+      handleCV
     }}>
       {children}
     </GlobalContext.Provider>

@@ -6,13 +6,14 @@ import ReactMarkdown from 'react-markdown';
 
 export default function MyCVs() {
     console.log("MyCVs component Rendered")
-    const { userData, getCVMDatabase, getCVMCurrentUser } = useGlobalContext();
+    const { userData, getCVMDatabase, getCVMCurrentUser, handleCV } = useGlobalContext();
     const [currentSelection, setCurrentSelection] = useState(null);
 
     const userCVs = userData.userCVs ? userData.userCVs : [];
     console.log(userCVs)
 
     const userCVEls = userCVs.map((CV, index) => {
+
         const CVtitle = CV.title;
         const lastModified = CV.lastModified;
 
@@ -40,11 +41,11 @@ export default function MyCVs() {
             console.log(index)
             // Check if the last digit is one of the specified values
             if (lastDigit === 1 || lastDigit === 3 || lastDigit === 5 || lastDigit === 7 || lastDigit === 9) {
-              return "lighter";
+                return "lighter";
             } else {
-              return "";
+                return "";
             }
-          }
+        }
 
         function handleArr(header, bodyArr) {
             let combined = `${header}\n`;
@@ -61,29 +62,29 @@ export default function MyCVs() {
 
         const combinedText = (
             `${title}
-  ${summary}
+${summary}
 
-  ${skills}
+${skills}
 
-  ${exp}
+${exp}
 
-  ${edu}
+${edu}
 
-  ${other}
-  `
+${other}
+`
         )
 
         return (
             <div className="cv-item" key={`CVitemKey-${index}`} id={`${index}`} onClick={(e) => getIndex(e, index)}>
                 <Accordion.Item eventKey={`CVitem-${index}`} >
-                    <Accordion.Header className={ checkLastDigit(index) }>{`CV${index + 1} --  ${CVtitle}`}</Accordion.Header>
+                    <Accordion.Header className={checkLastDigit(index)}>{`CV${index + 1} --  ${CVtitle}`}</Accordion.Header>
                     <Accordion.Body>
-                    <ReactMarkdown className="previewCV">
-                        {combinedText}
-                    </ReactMarkdown>
-                    <div className="previewTools">
+                        <ReactMarkdown className="previewCV">
+                            {combinedText}
+                        </ReactMarkdown>
+                        <div className="previewTools">
 
-                    </div>
+                        </div>
                     </Accordion.Body>
                 </Accordion.Item>
             </div>
@@ -98,9 +99,9 @@ export default function MyCVs() {
     return (
         <div className='myCVsWrapper'>
             <div className="CVTools container-fluid">
-                <button className='btn col tool modifyBtn'>Modify</button>
-                <button className='btn col tool duplicateBtn'>Duplicate</button>
-                <button className='btn col tool removeBtn'>Remove</button>
+                <button onClick={() => handleCV(currentSelection, 'modify')} className='btn col tool modifyBtn'>Modify</button>
+                <button onClick={() => handleCV(currentSelection, 'duplicate')} className='btn col tool duplicateBtn'>Duplicate</button>
+                <button onClick={() => handleCV(currentSelection, 'remove')} className='btn col tool removeBtn'>Remove</button>
             </div>
             <h3>
                 <div className="container-fluid myCVsWrapper-grid">
