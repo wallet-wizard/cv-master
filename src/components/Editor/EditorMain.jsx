@@ -38,7 +38,7 @@ export default function Editor() {
     const previousIndex = currentRouteIndex - 1;
     if (previousIndex >= 0) {
       setCurrentRouteIndex(previousIndex);
-      setCurrentRouteIndex(previousIndex);
+      navigate(routes[previousIndex]);
     }
   };
 

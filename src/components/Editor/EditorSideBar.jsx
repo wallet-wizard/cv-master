@@ -58,7 +58,6 @@ export const EditorSideBar = (props) => {
 // Adopded from 'react-bootstrap' and modified
 // https://getbootstrap.com/docs/4.0/components/dropdowns/
 export const EditorSideBtn = () => {
-  const { saveCV } = useGlobalContext();
   const navigate = useNavigate();
   const [activeElement, setActiveElement] = useState(null);
   const [showModal, setShowModal] = useState(false);
