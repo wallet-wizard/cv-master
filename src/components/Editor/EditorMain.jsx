@@ -3,8 +3,10 @@ import { Router, Routes, Route, useNavigate, useLocation  } from 'react-router-d
 import EditorArrSection from './editorPaths/EditorArrSection';
 import EditorStrSection from './editorPaths/EditorStrSection';
 import EditorNewCV from './editorPaths/EditorNewCV';
+import { useGlobalContext } from '../../utils/GlobalContext';
 
 export default function Editor() {
+  const { saveCV } = useGlobalContext();
   const [currentRouteIndex, setCurrentRouteIndex] = useState(0);
   const navigate = useNavigate();
 
@@ -36,9 +38,15 @@ export default function Editor() {
     const previousIndex = currentRouteIndex - 1;
     if (previousIndex >= 0) {
       setCurrentRouteIndex(previousIndex);
-      navigate(routes[previousIndex]);
+      setCurrentRouteIndex(previousIndex);
     }
   };
+
+  const handleSaveCV = () => {
+    saveCV();
+    // setCurrentRouteIndex(0);
+    navigate('/myCVs');
+  }
 
 
   return (
@@ -79,7 +87,7 @@ export default function Editor() {
             <button 
               name="next" 
               className="btn btn-secondary next"
-              onClick={goToNextRoute}
+              onClick={handleSaveCV}
             >{"SAVE"}
             </button>
             {/*<button className="btn btn-primary save">SAVE</button>*/}
