@@ -1,25 +1,32 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import './editor.css';
 import EditorMain from './EditorMain';
-import EditorSideBar from './EditorSideBar';
-import EditorBasicInfo from './editorPaths/EditorBasicInfo';
-
-const EditorContext = createContext(null);
+import {EditorSideBar, EditorSideBtn} from './EditorSideBar';
+import { usePreventReload } from '../../utils/usePreventReload'
+import { ErrorBoundary } from 'react-error-boundary';
+import Login from '../Login'
+import { useNavigate } from 'react-router-dom';
+import { useGlobalContext } from '../../utils/GlobalContext';
 
 export default function Editor() {
+  const navigate = useNavigate();
+  const { hideEditorOptions, setHideEditorOptions } = useGlobalContext();
 
-  const [newCV, setNewCV] = useState({
-    title: "Hi",
-    summary: "there"
-  })
+
+  // Custom hook to prevent user from reloading page
+  usePreventReload()
 
   return (
-    <div className="editorWrapper container-fluid">
+    <div className="editor-wrapper container-fluid">
       <div className="row">
-        <EditorContext.Provider value={{newCV, setNewCV}}>
-          <EditorSideBar />
+        <ErrorBoundary
+          FallbackComponent={Login}
+          onError={() => console.log("Error happened!")}
+        >
+          {!hideEditorOptions && <EditorSideBar />}
+          {!hideEditorOptions && <EditorSideBtn />}
           <EditorMain />
-        </EditorContext.Provider>
+        </ErrorBoundary>
       </div>
     </div>
   );

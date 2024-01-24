@@ -1,6 +1,17 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { initialStaging } from './defaultValues';
 
-// We are initializing the Context
+import {
+  getLocalStorage,
+  updateLocalStorage,
+  getCVMCurrentUser,
+  getCVMDatabase,
+  updateCVMCurrentUser,
+  logout
+} from './helperLocalStorage';
+
+
+// We are creating / initializing the Context first
 const GlobalContext = createContext();
 
 
@@ -14,158 +25,218 @@ allowing any components wrapped with EditorProvider
 to access the provided context).
 */
 export const GlobalContextProvider = ({ children }) => {
-  // User Data
-  const [userData, setUserData] = useState({
-    userData: {
-      username: 'userTest1',
-      lastLogin: new Date(),
-    },
-    stagingCV: {
-      title: '',
-      summary: '',
-      skills: '',
-      experience: ['1', '2', '3'],
-      education: ['1', '2', '3'],
-    },
-    userCVs: []
-  })
 
-  // New CV Data
-  const [newCV, setNewCV] = useState({
-    title: '',
-    summary: '',
-    skills: [],
-    experience: [],
-    education: [],
-  });
+  // Global States
+  const [userData, setUserData] = useState(null)
+  const [authenticated, setAuthenticated] = useState(false);
+  const [hideEditorOptions, setHideEditorOptions] = useState(false)
 
-  // Function to get data from any localStorage key
-  const getLocalStorage = (key) => {
-    const storedValue = localStorage.getItem(key);
-    return storedValue ? JSON.parse(storedValue) : null;
-  };
 
-  // Function to update data of any localStorage key
-  const updateLocalStorage = (key, data) => {
-    localStorage.setItem(key, JSON.stringify(data));
-  };
-
-  // Function to get CV-Master DB from localStorage
-  const getCVMDatabase = () => {
-    const storedValue = localStorage.getItem('CVMDatabase');
-    return storedValue ? JSON.parse(storedValue) : null;
-  };
-
-  // Function to get CV-Master logged-in user from localStorage
-  const getCVMCurrentUser = () => {
-    const storedValue = localStorage.getItem('CVMCurrentUser');
-    return storedValue ? JSON.parse(storedValue) : null;
-  };
 
   // Function to update CV-Master DB in localStorage
   const updateCVMDatabase = (data) => {
-    // Discard update if data received is not of type 'object'
     if (typeof data !== 'object' || data === null) {
       console.Error("Error updating new Data to local Storage. Data should be type: 'object");
       return;
     }
-
     // Get current Database
-    const CVMDatabase = getCVMDatabase();
-    // if (CVMDatabase === null) {
-    //   // ...
-    // }
-    // const username = getCVMCurrentUser();
+    let CVMDatabase = getCVMDatabase();
 
-    // // Check if username exists in current database
-    // const existingIndex = CVMDatabase.findIndex(obj => obj.userData.username === username);
+    // If Database doesn't exist, create one and push the data in
+    if (!CVMDatabase) {
+      CVMDatabase = [data];
+      localStorage.setItem('CVMDatabase', JSON.stringify(CVMDatabase));
+      return;
+    }
+    // Get current username
+    const username = getCVMCurrentUser();
+    if (!username) {
+      setAuthenticated(false);
+    }
+    // Check if username exists in current database
+    const existingIndex = CVMDatabase.findIndex(obj => obj.userData.username === username);
 
-    // // If it does, only update that object
-    // if (existingIndex !== -1) {
-    //   CVMDatabase[existingIndex] = {
-    //     ...CVMDatabase[existingIndex],
-    //     ...data
-    //   };
-    // } else {
-    //   // If no matching username is found, add a new object to the array
-    //   const newObj = {
-    //     userData: {
-    //       lastLogin: new Data()
-    //     },
-    //     ...data
-    //   };
-
-    //   CVMDatabase.push(newObj);
-    // }
+    // If it does, only update that object
+    if (existingIndex !== -1) {
+      CVMDatabase[existingIndex] = {
+        ...CVMDatabase[existingIndex],
+        ...data
+      };
+    } else {
+      // If no matching username is found, add a new object to the array
+      CVMDatabase.push(data);
+    }
+    localStorage.setItem('CVMDatabase', JSON.stringify(CVMDatabase));
+    return;
   };
 
 
+
+  // State updaters
+
   // Sets [name]: value to stateful object
-  const setText = (event, setState) => {
-    const { name, value } = event.target;
-    // console.log(name, '\n', value)
+  const setText = ({ event, setState, index }) => {
+
+    const { id, name, value } = event.target;
+    const nameArr = name.split('-');
+
     setState((prev) => {
-      return {
-        ...prev,
-        [name]: value
+      if (nameArr.length === 1) {
+
+        // Check if name is 'CVTitle' and handle
+        if (nameArr[0] === 'CVTitle') {
+          return {
+            ...prev,
+            stagingCVTitle: value
+          }
+        }
+
+        return {
+          ...prev,
+          stagingCV: {
+            ...prev.stagingCV,
+            [name]: value,
+          },
+        };
       }
-    })
+
+      if (nameArr[1] === "header") {
+        return {
+          ...prev,
+          stagingCV: {
+            ...prev.stagingCV,
+            [nameArr[0]]: {
+              ...prev.stagingCV[nameArr[0]],
+              [nameArr[1]]: value,
+            },
+          },
+        };
+      }
+
+      if (nameArr[1] === "item") {
+        console.log("Updating Item...", index);
+        const arr = prev.stagingCV[nameArr[0]][nameArr[0]];
+        const arrLength = arr.length;
+        const newArr = [...arr, value];
+        return {
+          ...prev,
+          stagingCV: {
+            ...prev.stagingCV,
+            [nameArr[0]]: {
+              ...prev.stagingCV[nameArr[0]],
+              [nameArr[0]]: arrLength < 1 ? newArr : [...arr.slice(0, index), value, ...arr.slice(index + 1)],
+            },
+          },
+        };
+      }
+      // Return the previous state if none of the conditions match
+      return prev;
+    });
+  };
+
+
+
+  // Helper functions
+
+  function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
-  // RUNS ON EVERY APP REFRESH
+
+  // SAVE TO LOCAL STORAGE FUNCTIONALITY
+
+  // Saves CV to userCV array in localStorage
+  function saveCV() {
+    // Check if CV Title exists, prompt user if not
+    const CVTitle = userData.stagingCVTitle || prompt("CV Title?")
+    if (!CVTitle) {
+      return;
+    }
+
+    // 1. Create new-CV Object
+    const newCV = {
+      title: [CVTitle],
+      lastModified: new Date(),
+      data: {
+        ...initialStaging
+      }
+    }
+
+    // Update if CV Title exists - TBC
+
+    // Update "local" userData
+    const newUserData = {
+      ...userData,
+      userCVs: [
+        ...userData.userCVs,
+        newCV
+      ],
+      stagingCV: initialStaging,
+      stagingCVTitle: ''
+    }
+    setUserData((prev) => newUserData);
+
+    // Update localStorage
+    updateCVMDatabase(newUserData)
+
+    // Console log:
+    console.log("DB Updated:")
+    console.log(getCVMDatabase())
+  }
+
+
+  
+  // RUNS ON EVERY APP REFRESH + ON USER CHANGE
   useEffect(() => {
+    if (!authenticated) {
+      console.log("Not authenticated. Returning...")
+      return;
+    } else {
+      console.log("User authenticated.")
+    }
     const currentUser = getCVMCurrentUser();
     const CVMDatabase = getCVMDatabase();
 
-    // Create CMDatabase if it doesn't exist
+    // Create CVMDatabase if it doesn't exist
     if (!CVMDatabase) {
-      updateCVMDatabase([]);
+      updateLocalStorage('CVMDatabase', []);
     }
 
-    // Check if CVMCurrentUser key exists in local storage
-    if (currentUser && CVMDatabase) {
-      // Check if user exists
-      const CVMUserData = CVMDatabase.find(obj => obj?.userData?.username === currentUser) || null;
+    // Check if current user is set
+    if (!currentUser) {
+      console.log('User not set. Prompting for login...');
+      return;
+    } else {
+      // User is set, check if user exists in the database
+      const userExists = CVMDatabase.some(obj => obj.userData.username === currentUser);
 
-      // If user exists, set data
-      if (CVMUserData) {
-        setUserData((prev) => {
-          return {
-            ...prev,
-            ...CVMUserData
-          }
-        });
+      if (userExists) {
+        // User exists, retrieve user data from the database
+        const userDataFromDB = CVMDatabase.find(obj => obj.userData.username === currentUser);
+
+        // Update global state with user data
+        setUserData(userDataFromDB);
       } else {
-        const addNewUser = {
+        // User is new, initiate a new stateful object
+        setUserData({
           userData: {
             username: currentUser,
-            lastLogin: new Date(),
+            signupDate: new Date(),
           },
-          stagingCV: {
-            title: '',
-            summary: '',
-            skills: '',
-            experience: [],
-            education: [],
-          },
+          stagingCV: initialStaging,
+          stagingCVTitle: '',
           userCVs: []
-        };
+        });
       }
     }
-  }, [])
+  }, [authenticated]);
 
-  // // Example useEffect for updating data to localStorage on specific state changes
-  // useEffect(() => {
-  //   // Update data in localStorage when userData or newCV changes
-  //   updateLocalStorage('userData', userData);
-  //   updateLocalStorage('newCV', newCV);
-  // }, [userData, newCV]);
+
+
 
 
   return (
     <GlobalContext.Provider value={{
-      newCV,
-      setNewCV,
       userData,
       setUserData,
       getLocalStorage,
@@ -173,7 +244,15 @@ export const GlobalContextProvider = ({ children }) => {
       setText,
       getCVMCurrentUser,
       getCVMDatabase,
-      updateCVMDatabase
+      updateCVMDatabase,
+      updateCVMCurrentUser,
+      authenticated,
+      setAuthenticated,
+      logout,
+      capitalize,
+      saveCV,
+      hideEditorOptions,
+      setHideEditorOptions
     }}>
       {children}
     </GlobalContext.Provider>

@@ -5,7 +5,7 @@ import "./searchJobs.css";
 export default function SearchJobs() {
   const [jobs, setJobsData] = useState([]);
 
-  const url = `http://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=${
+  const url = `https://api.adzuna.com/v1/api/jobs/gb/search/1?app_id=${
     import.meta.env.VITE_ADZUNA_ID
   }&app_key=${
     import.meta.env.VITE_ADZUNA_KEY
