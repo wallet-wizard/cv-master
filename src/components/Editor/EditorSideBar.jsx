@@ -15,12 +15,19 @@ const links = [
 ];
 
 export const EditorSideBar = (props) => {
+  const navigate = useNavigate();
   const { saveCV } = useGlobalContext();
   const [activeElement, setActiveElement] = useState(null)
   const [showModal, setShowModal] = useState(false);
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
+
+  const handleSaveCV = () => {
+    saveCV();
+    // setCurrentRouteIndex(0);
+    navigate('/myCVs');
+  }
 
   function updateActiveLink(e) {
     const { name } = e.target;
@@ -43,7 +50,7 @@ export const EditorSideBar = (props) => {
         <ul className='navbar-nav align-items-center justify-content-evenly'>
           {navElements}
         </ul>
-      <button onClick={saveCV} className="btn btn-primary save-cv-btn">SAVE CV</button>
+      <button onClick={handleSaveCV} className="btn btn-primary save-cv-btn">SAVE CV</button>
     </aside>
   );
 };

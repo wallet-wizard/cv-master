@@ -162,3 +162,11 @@
 
 }
 
+
+/* NAV BUTTONS */
+
+.editor-navBlock button{
+    margin: 1rem;
+    margin-top: 3rem;
+    background-color: var(--editor-sidebar-bg-dark);
+}
