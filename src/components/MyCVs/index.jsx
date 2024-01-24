@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useGlobalContext } from '../../utils/GlobalContext'
-import './MyCVs.css'
+import './myCVs.css'
 import Accordion from 'react-bootstrap/Accordion';
 import ReactMarkdown from 'react-markdown';
 
