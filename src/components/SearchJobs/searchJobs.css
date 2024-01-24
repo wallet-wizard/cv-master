@@ -1,10 +1,10 @@
 .job-body {
-    background-color: #87bba2;
+    background-color: #e6e6e6;
 }
 
 .job-search-title {
-    background-color: #62a786;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    background-color: #4d53624d;
+    font-family: 'Kaushan Script', cursive;
     display: flex;
     justify-content: center;
     padding: 2rem;
@@ -17,12 +17,19 @@
     grid-template-columns: 1fr 1fr;
 }
 
+@media only screen and (max-width: 768px) {
+    .job-card-container {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}
+
 .job-card {
     padding: 1rem;
     display:flex;
     flex-direction: column;
-    align-items: flex-start;
-    background-color: #c9e4ca;
+    align-items: space-around;
+    background-color: rgba(135, 149, 202, 1);
     margin: 1.5rem;
     border-radius: 10px;
 }
@@ -30,9 +37,21 @@
 .job-url {
     color: black;
     text-decoration: none;
+
 }
 
 .job-url:hover{
     text-decoration: underline;
 }
 
+
+.job-url-section {
+    display: flex;
+    justify-content: space-around;
+}
+
+.job-title {
+    border-bottom: solid;
+    border-color: grey;
+    border-width: 0.1rem;
+}

@@ -9,7 +9,7 @@ export default function SearchJobs() {
     import.meta.env.VITE_ADZUNA_ID
   }&app_key=${
     import.meta.env.VITE_ADZUNA_KEY
-  }&results_per_page=20&what=javascript%20developer&content-type=application/json`;
+  }&results_per_page=20&what=front%20end%20developer&where=london&distance=50&max_days_old=30`;
 
   // const url =
   //   "https://jobs-api14.p.rapidapi.com/list?query=Web%20Developer&location=United%20States&distance=1.0&language=en_GB&remoteOnly=false&datePosted=month&emplyomentTypes=fulltime%3Bparttime%3Bintern%3Bcontractor&index=0";
@@ -25,7 +25,7 @@ export default function SearchJobs() {
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.results);
+        // console.log(data.results);
         setJobsData(data.results);
       });
   }, []);
@@ -42,12 +42,14 @@ export default function SearchJobs() {
             title={job.title}
             company={job.company.display_name}
             city={
-              job.location.area[2] ? job.location.area[2] : job.location.area[1]
+              job.location.area.length > 2
+                ? `${job.location.area[2]}, `
+                : `${job.location.area[1]}, `
             }
             country={job.location.area[0]}
             salary={job.salary_max}
             url={job.redirect_url}
-            // created={job.created}
+            created={job.created}
           />
         ))}
       </section>

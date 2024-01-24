@@ -1,3 +1,5 @@
+.env
+
 # Logs
 logs
 *.log
@@ -22,8 +24,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
-
-apikey.js
-
-.env
