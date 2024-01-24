@@ -11,6 +11,7 @@ export default function EditorStrSection(props) {
     
    // Hide editor Selections
    useEffect(()=> {
+    props.setIndex();
     setHideEditorOptions(false)
   }, [])
 

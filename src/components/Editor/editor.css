@@ -162,3 +162,9 @@
 
 }
 
+
+/* NAV BUTTONS */
+
+.editor-navBlock button{
+    margin: 1rem;
+}
