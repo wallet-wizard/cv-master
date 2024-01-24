@@ -1,26 +1,164 @@
-:root {
-    --bg-dark: rgba(77, 83, 98, 1);
-    --bg-textArea: rgba(215, 215, 215, 1);
-    --bg-textArea-lighter: rgba(233, 233, 233, 1);
+
+/* EDITOR CONTAINER */
+
+.editor-wrapper {
+    --editor-sidebar-bg-dark: rgba(77, 83, 98, 1);
+    --editor-textArea-bg: rgba(215, 215, 215, 1);
+    --editor-textArea-bg-lighter: rgba(233, 233, 233, 1);
+    --editor-textArea-hover: rgba(255, 255, 255, 0.2);
+    --editor-btn-bg: rgb(135, 149, 202);
+    --editor-body-bg-color: rgb(248, 248, 248);
+    --editor-link-bg-hover: rgba(30, 30, 30, 0.1);
+    --editor-newCV-btn-bg: rgb(77, 83, 98);
+    --editor-newCV-btn-text: rgb(246, 246, 246);
 }
+
+.editor-wrapper {
+    background-color: var(--editor-body-bg-color);
+    height: calc(100vh - var(--navbar-height));
+}
+.editor-wrapper aside {
+    /* position: fixed; */
+    z-index: 1000;
+    height: calc(100vh - var(--navbar-height));
+}
+
+
+/* EDITOR SIDEBAR */
 
 .editor-sideBar {
     min-width: 12.5rem;
-    min-height: 100vh;
-    background-color:var(--bg-dark);
+    min-height: calc(100vh - var(--navbar-height));
+    letter-spacing: 0.075rem;
+    background-color:var(--editor-sidebar-bg-dark);
+}
+.side-nav {
+    /* margin-top: 7rem; */
+
+}
+.editor-sideBar .navbar-nav {
+    /* height: 33%; */
+    /* margin-bottom: 10rem; */
+}
+
+.editor-sideBar button {
+    border: 0;
+    background-color: var(--editor-btn-bg);
+    margin: 4rem 1.7rem;
+}
+.editor-sideBar li:hover {
+    background-color: var(--editor-link-bg-hover);
+}
+.editor-sideBar .nav-item {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+.editor-sideBar .nav-link {
+    color: white; 
+    /* width: 100%; */
+    /* height: 100%; Remove this line */
+    padding: 1rem !important; 
+  }
+
+.editor-sideBar .active {
+    background-color: var(--editor-body-bg-color);
+    color: var(--editor-sidebar-bg-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
 
 }
 
+
+/* NAVIGATION BTN */
+
+.editor-wrapper .dropdown {
+    /* background-color: var(--editor-btn-bg); */
+    margin: 1rem;
+    padding: 0 !important;
+    font-family: 'Oxygen', sans-serif;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.editor-wrapper .dropdown button {
+    background-color: var(--editor-btn-bg);
+    border: none;
+    min-width: 30%;
+}
+
+/* ====== */
+/* EDITOR MAIN */
+
+
+/* EDITOR TITLE */
+.editor-section-title {
+    font-family: 'Fira Mono', monospace;
+    margin-top: 2.7rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    letter-spacing: 0.15rem;
+}
+.editor-section-title::before,
+.editor-section-title::after {
+    content: "_";
+}
+
+/* EDITOR TEXTAREA */
+
 .editor-textArea {
-    
+    outline: none;
     border: 0;
     width: 100% !important;
-    /* padding: 1.2rem; */
-    background-color: var(--bg-textArea-lighter);
-    /* white-space: nowrap;   */
+    padding: 0.4em 0.8em;
+    margin: 1rem 0rem 0rem 0rem;
+    background-color: var(--editor-textArea-bg-lighter);
     overflow-x: auto;   
     overflow-y:visible;     /* Enables vertical scrollbar when content overflows */
-    resize: none;         /* Disables resizing */
+    resize: none;           /* Disables resizing */
     box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+
+/* EDITOR NEW-CV */
+.editor-NewCV {
+    font-family: 'Oxygen', sans-serif;
+    margin-top: 4rem;
+    height: 30vh;
+}
+
+.editor-NewCV h3 {
+    font-family: 'Kaushan Script', cursive;
+    font-size: 1.8rem;
+    max-width: 10rem;
+}
+
+.editor-NewCV .input-div {
+    width: 80%;
+    height: 2.5rem;
+}
+.editor-NewCV .input-div label{
+    font-family: 'Kaushan Script', cursive;
+    background-color: var(--editor-newCV-btn-bg);
+    padding: 0px 0.5rem;
+    color: var(--editor-newCV-btn-text);
+    font-size: larger;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.4);
+}
+.editor-NewCV .input-div input{
+    outline: none;
+    border: 0px;
+    padding: 0px 0.5rem;
+    color: var(--editor-newCV-btn-bg);
+    width: 70%;
+    box-shadow: 1px 2px 0px 0px rgba(0, 0, 0, 0.4);
+}
+
+.editor-NewCV .btn-get-started {
+    margin-top: 2.4rem;
+    background-color: var(--editor-btn-bg) !important;
+
 }
 
