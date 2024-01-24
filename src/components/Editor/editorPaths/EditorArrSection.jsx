@@ -12,8 +12,10 @@ export default function EditorArrSection(props) {
   const dragItem = useRef(null);
   const dragOverItem = useRef(null);
 
-  // Show editor options
-  setHideEditorOptions(false);
+   // Hide editor Selections
+   useEffect(()=> {
+    setHideEditorOptions(false)
+  }, [])
 
   // Refresh page on userData updates
   useEffect(() => {
@@ -120,7 +122,12 @@ export default function EditorArrSection(props) {
   return (
     <div className={`d-block Editor-${section}`}>
       <h3 className='editor-section-title'>{capitalize(section)}</h3>
-      <CustomTextarea name={`${section}-header`} id={`${section}-header`} value={header} updateValue={(event) => setText({ event, setState: setUserData })} />
+      <CustomTextarea 
+        key={`${section}-header`}
+        name={`${section}-header`} 
+        id={`${section}-header`} 
+        value={header} 
+        updateValue={(event) => setText({ event, setState: setUserData })} />
       <div droppable="true" className='draggableArea'>
         {sectionEl}
       </div>
