@@ -25,7 +25,7 @@ export default function SearchJobs() {
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.results);
+        // console.log(data.results);
         setJobsData(data.results);
       });
   }, []);
