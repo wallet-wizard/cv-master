@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useGlobalContext } from '../../utils/GlobalContext'
 import './MyCVs.css'
 import Accordion from 'react-bootstrap/Accordion';
 import ReactMarkdown from 'react-markdown';
 
 export default function MyCVs() {
+    console.log("MyCVs component Rendered")
     const { userData, getCVMDatabase, getCVMCurrentUser } = useGlobalContext();
-    // const str = JSON.stringify(userData, null, 10)
+    const [currentSelection, setCurrentSelection] = useState(null);
+
     const userCVs = userData.userCVs ? userData.userCVs : [];
     console.log(userCVs)
 
@@ -25,6 +27,24 @@ export default function MyCVs() {
         const eduArr = data.education.education;
         const other = data.other;
 
+
+        function getIndex(e, index) {
+            console.log(e.target)
+            console.log(index)
+            setCurrentSelection(index)
+        }
+
+        function checkLastDigit(index) {
+            // Get the last digit of the index
+            const lastDigit = index % 10;
+            console.log(index)
+            // Check if the last digit is one of the specified values
+            if (lastDigit === 1 || lastDigit === 3 || lastDigit === 5 || lastDigit === 7 || lastDigit === 9) {
+              return "lighter";
+            } else {
+              return "";
+            }
+          }
 
         function handleArr(header, bodyArr) {
             let combined = `${header}\n`;
@@ -54,14 +74,19 @@ export default function MyCVs() {
         )
 
         return (
-            <Accordion.Item eventKey={`CVitem-${index}`}>
-                <Accordion.Header>{`CV${index + 1} --  ${CVtitle}`}</Accordion.Header>
-                <Accordion.Body>
-                <ReactMarkdown>
-                    {combinedText}
-                </ReactMarkdown>
-                </Accordion.Body>
-            </Accordion.Item>
+            <div className="cv-item" key={`CVitemKey-${index}`} id={`${index}`} onClick={(e) => getIndex(e, index)}>
+                <Accordion.Item eventKey={`CVitem-${index}`} >
+                    <Accordion.Header className={ checkLastDigit(index) }>{`CV${index + 1} --  ${CVtitle}`}</Accordion.Header>
+                    <Accordion.Body>
+                    <ReactMarkdown className="previewCV">
+                        {combinedText}
+                    </ReactMarkdown>
+                    <div className="previewTools">
+
+                    </div>
+                    </Accordion.Body>
+                </Accordion.Item>
+            </div>
         )
     }
     );
@@ -72,6 +97,11 @@ export default function MyCVs() {
 
     return (
         <div className='myCVsWrapper'>
+            <div className="CVTools container-fluid">
+                <button className='btn col tool modifyBtn'>Modify</button>
+                <button className='btn col tool duplicateBtn'>Duplicate</button>
+                <button className='btn col tool removeBtn'>Remove</button>
+            </div>
             <h3>
                 <div className="container-fluid myCVsWrapper-grid">
                     <Accordion defaultActiveKey="0">
