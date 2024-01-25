@@ -18,10 +18,10 @@
 
 /* CV Tools */
 .CVTools {
-    /* height: 5vh; */
+    /* height: 3.75rem; */
     display: flex;
     justify-content: center;
-    background-color: rgba(77, 83, 98, 0.3);
+    background-color: var(--toolbar-bg-color);
     margin-bottom: 1rem;
     margin-top: 0rem;
     padding-top: 0rem;
