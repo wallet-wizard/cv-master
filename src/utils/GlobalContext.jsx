@@ -113,17 +113,16 @@ export const GlobalContextProvider = ({ children }) => {
         };
       }
 
-      if (nameArr[1] === "item") {
-        const arr = prev.stagingCV[nameArr[0]][nameArr[0]];
-        const arrLength = arr.length;
-        const newArr = [...arr, value];
+      if (nameArr[1] === 'item') {
+        const updatedArr = [...prev.stagingCV[nameArr[0]][nameArr[0]]];
+        updatedArr[index] = value; // Update specific textarea value
         return {
           ...prev,
           stagingCV: {
             ...prev.stagingCV,
             [nameArr[0]]: {
               ...prev.stagingCV[nameArr[0]],
-              [nameArr[0]]: arrLength < 1 ? newArr : [...arr.slice(0, index), value, ...arr.slice(index + 1)],
+              [nameArr[0]]: updatedArr,
             },
           },
         };
