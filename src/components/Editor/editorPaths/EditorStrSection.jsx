@@ -19,6 +19,8 @@ export default function EditorStrSection(props) {
     const render = elements.map((el, index) => {
         const value = userData.stagingCV[el];
         return (
+            <>
+            <h5 className="textArea-label">{el}</h5>
             <CustomTextarea 
                 key={`${section}-${index}`}  
                 name={`${el}`} 
@@ -26,6 +28,7 @@ export default function EditorStrSection(props) {
                 id={`${section}-${el}`} 
                 updateValue={(event) => setText({event, setState: setUserData})} 
             />
+            </>
         )
     } )
 

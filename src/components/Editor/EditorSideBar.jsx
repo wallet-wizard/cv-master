@@ -6,7 +6,7 @@ import PreviewModal from './PreviewModal';
 
 
 const links = [
-  { name: 'New CV', path: '/editor' },
+  { name: 'CV Title', path: '/editor' },
   { name: 'Basic Info', path: 'basic-info' },
   { name: 'Skills', path: 'skills' },
   { name: 'Experience', path: 'experience' },
@@ -23,7 +23,12 @@ export const EditorSideBar = (props) => {
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
 
+  useEffect(() => {
+    setActiveElement('basic-info')
+  }, [])
+
   const handleSaveCV = () => {
+    console.log("Here!")
     saveCV();
     // setCurrentRouteIndex(0);
     navigate('/myCVs');
@@ -58,7 +63,6 @@ export const EditorSideBar = (props) => {
 // Adopded from 'react-bootstrap' and modified
 // https://getbootstrap.com/docs/4.0/components/dropdowns/
 export const EditorSideBtn = () => {
-  const { saveCV } = useGlobalContext();
   const navigate = useNavigate();
   const [activeElement, setActiveElement] = useState(null);
   const [showModal, setShowModal] = useState(false);

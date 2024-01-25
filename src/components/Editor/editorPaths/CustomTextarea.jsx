@@ -20,7 +20,7 @@ function CustomTextarea(props) {
           id={`${id}-${props.id ? props.id : ""}`}
           onChange={(event) => handleChange(event)}
           placeholder={props.placeholder || "## Enter markdown text.."}
-          className='editor-textArea'
+          className={`editor-textArea ${props.arrBlock && 'editor-textAreaArr'}`}
           value={props.value ? props.value : ""}
           name={props.name}
           draggable={props.draggable || false}

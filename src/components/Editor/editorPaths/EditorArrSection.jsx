@@ -9,9 +9,11 @@ export default function EditorArrSection(props) {
   const { section } = props
   const { setText, userData, setUserData, capitalize, setHideEditorOptions, hideEditorOptions } = useGlobalContext();
   const [sectionArr, setSectionArr] = useState(userData.stagingCV[section][section] || []);
+  const [focusedTextarea, setFocusedTextarea] = useState(null); // State for tracking focused textarea
   const dragItem = useRef(null);
   const dragOverItem = useRef(null);
 
+  console.log("focused:", focusedTextarea)
    // Hide editor Selections
    useEffect(()=> {
     props.setIndex();
@@ -37,15 +39,24 @@ export default function EditorArrSection(props) {
       onDragEnter={(e) => dragOverItem.current = index}
       onDragEnd={handleOnDragEnd}
       onDragOver={(e) => e.preventDefault()}
+      onFocus={() => setFocusedTextarea(index)}
+      className='textAreaArrElWrapper'
     >
-      <CustomTextarea
-        name={`${section}-item`}
-        id={`${section}-item-${index}`}
-        value={sectionItem}
-        updateValue={(event) => setText({ event, setState: setUserData, index })}
-        placeholder={`-**New ${section} Item**`}
-      />
-      <button onClick={() => removeTextarea(index)}>remove</button>
+
+        <CustomTextarea
+          name={`${section}-item`}
+          id={`${section}-item-${index}`}
+          value={sectionItem}
+          updateValue={(event) => setText({ event, setState: setUserData, index })}
+          placeholder={`-**New ${section} Item**`}
+          arrBlock={true}
+        />
+        {focusedTextarea === index && ( // Render Remove button only when the corresponding textarea is focused
+          <button onClick={() => removeTextarea(index)} className='editor-removeTextAreaBtn'>
+            remove
+          </button>
+        )}
+
     </div>
   ))
   
@@ -123,16 +134,18 @@ export default function EditorArrSection(props) {
   return (
     <div className={`d-block Editor-${section}`}>
       <h3 className='editor-section-title'>{capitalize(section)}</h3>
+      <h5 className="textArea-label">header</h5>
       <CustomTextarea 
         key={`${section}-header`}
         name={`${section}-header`} 
         id={`${section}-header`} 
         value={header} 
         updateValue={(event) => setText({ event, setState: setUserData })} />
-      <div droppable="true" className='draggableArea'>
+      <h5 className="textArea-label">{`${section} list`}</h5>
+      <div draggable="true" className='draggableArea'>
         {sectionEl}
       </div>
-      <button onClick={() => addTextarea()} className={`add${capitalize(section)}`}>
+      <button onClick={() => addTextarea()} className={`add${capitalize(section)} editor-addTextAreaBtn`}>
         ADD
       </button>
     </div>
