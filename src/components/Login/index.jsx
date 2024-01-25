@@ -38,7 +38,7 @@ export default function Login(props) {
           <div id='form-div'>
             <form className='my-3' id='login-form' onSubmit={(e) => submitUser(e)}>
               <div id='input-and-label' className='py-4'>
-                <label htmlFor="username" className='py-1'>Type your user name:</label>
+                <label htmlFor="username" className='py-1'>Type your username:</label>
                 <input className=''onChange={(e) => handleChange(e)} id="username" type="text" />
               </div>
               <button id='submit-btn' className='btn' type="submit">LOGIN</button>

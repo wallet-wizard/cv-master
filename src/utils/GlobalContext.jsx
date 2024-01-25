@@ -114,7 +114,6 @@ export const GlobalContextProvider = ({ children }) => {
       }
 
       if (nameArr[1] === "item") {
-        console.log("Updating Item...", index);
         const arr = prev.stagingCV[nameArr[0]][nameArr[0]];
         const arrLength = arr.length;
         const newArr = [...arr, value];
@@ -158,7 +157,7 @@ export const GlobalContextProvider = ({ children }) => {
       title: [CVTitle],
       lastModified: new Date(),
       data: {
-        ...initialStaging
+        ...userData.stagingCV
       }
     }
 
@@ -194,12 +193,15 @@ export const GlobalContextProvider = ({ children }) => {
     } else {
       console.log("User authenticated.")
     }
+
     const currentUser = getCVMCurrentUser();
-    const CVMDatabase = getCVMDatabase();
+    let CVMDatabase = getCVMDatabase();
 
     // Create CVMDatabase if it doesn't exist
     if (!CVMDatabase) {
+      console.log("NO DATABASE!, creating new..")
       updateLocalStorage('CVMDatabase', []);
+      CVMDatabase = getCVMDatabase();
     }
 
     // Check if current user is set
@@ -233,6 +235,49 @@ export const GlobalContextProvider = ({ children }) => {
 
 
 
+  function handleCV(index, type) {
+    const newCVarr = userData.userCVs;
+    if (!newCVarr || newCVarr.length <= 0 || index === null) {
+      console.log("Did not handle CV operation.")
+      return;
+    }
+
+    if (type === 'remove') {
+      newCVarr.splice(index, 1);
+    }
+
+    if (type === 'duplicate') {
+      console.log("It's duplicating!!")
+      console.log("Index:", index)
+      newCVarr.push(newCVarr[index])
+      console.log("This:", newCVarr)
+    }
+
+    if (type === 'modify') {
+      console.log(newCVarr[index])
+    }
+
+    
+    setUserData((prev) => {
+      const newUserData = {
+        ...prev,
+        userCVs: newCVarr
+      }
+
+      if (newUserData) {
+        // Update Local Storage
+        updateCVMDatabase(newUserData);
+  
+        return newUserData
+      } else {
+        return prev;
+      }
+    }) 
+
+  }
+  
+
+
 
 
   return (
@@ -252,7 +297,8 @@ export const GlobalContextProvider = ({ children }) => {
       capitalize,
       saveCV,
       hideEditorOptions,
-      setHideEditorOptions
+      setHideEditorOptions,
+      handleCV
     }}>
       {children}
     </GlobalContext.Provider>
