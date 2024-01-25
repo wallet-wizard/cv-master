@@ -103,3 +103,14 @@
     font-size: 1.1rem;
     margin: 0.75rem 0px;
 }
+
+
+/* NO CVS YET Section */
+.noCVs {
+    height: calc(70vh - var(--navbar-height));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
