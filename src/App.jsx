@@ -25,7 +25,6 @@ function App() {
     setAuthenticated(true)
   }
 
-  console.log("App RAN")
   return (
     <Router>
       {!authenticated ? (

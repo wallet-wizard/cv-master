@@ -8,7 +8,6 @@ import ReactMarkdown from 'react-markdown';
 export default function MyCVs() {
 	const navigate = useNavigate();
 	const { userData, getCVMDatabase, getCVMCurrentUser, handleCV } = useGlobalContext();
-	console.log("MyCVs component Rendered")
 	const [currentSelection, setCurrentSelection] = useState(null);
 
 

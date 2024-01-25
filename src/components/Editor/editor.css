@@ -153,7 +153,7 @@
     height: 2.5rem;
 }
 .editor-NewCV .input-div label{
-    font-family: 'Kaushan Script', cursive;
+    font-family: 'Kavoon', serif;
     background-color: var(--editor-newCV-btn-bg);
     padding: 0px 0.5rem;
     color: var(--editor-newCV-btn-text);
