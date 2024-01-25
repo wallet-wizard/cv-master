@@ -8,7 +8,7 @@ export default function EditorArrSection(props) {
   // Importing hooks and props
   const { section } = props
   const { setText, userData, setUserData, capitalize, setHideEditorOptions, hideEditorOptions } = useGlobalContext();
-  const [sectionArr, setSectionArr] = useState(userData.stagingCV[section][section] || []);
+  // const [sectionArr, setSectionArr] = useState(userData.stagingCV[section][section] || []);
   const [focusedTextarea, setFocusedTextarea] = useState(null); // State for tracking focused textarea
   const dragItem = useRef(null);
   const dragOverItem = useRef(null);
@@ -20,17 +20,8 @@ export default function EditorArrSection(props) {
     setHideEditorOptions(false)
   }, [])
 
-  // Refresh page on userData updates
-  useEffect(() => {
-    setSectionArr((prevArr) => {
-      return (
-        userData['stagingCV'][section][section] || []
-      )
-    });
-  }, [section, userData.stagingCV]);
-
-
   // Create section Elements
+  const sectionArr = userData.stagingCV[section][section] || [];
   const sectionEl = sectionArr.map((sectionItem, index) => (
     <div
       key={`${section}-${index}`}
@@ -42,7 +33,6 @@ export default function EditorArrSection(props) {
       onFocus={() => setFocusedTextarea(index)}
       className='textAreaArrElWrapper'
     >
-
         <CustomTextarea
           name={`${section}-item`}
           id={`${section}-item-${index}`}
@@ -70,7 +60,6 @@ export default function EditorArrSection(props) {
     let updatedSection = [...sectionArr];
     const draggedItemContent = updatedSection.splice(dragItem.current, 1)[0];
     updatedSection.splice(dragOverItem.current, 0, draggedItemContent);
-    setSectionArr(updatedSection)
     setUserData((prev) => {
 
       return {
@@ -89,7 +78,6 @@ export default function EditorArrSection(props) {
 
   // Textarea functionality
   function addTextarea() {
-    setSectionArr(prev => [...prev, ['']]);
     setUserData((prev) => {
       const arr = prev.stagingCV[section][section];
       return {
@@ -108,7 +96,6 @@ export default function EditorArrSection(props) {
   function removeTextarea(index) {
     const updatedSection = sectionArr.filter((_, i) => i !== index);
     console.log("updatedSection:", updatedSection)
-    setSectionArr(updatedSection);
     setUserData((prev) => ({
       ...prev,
       stagingCV: {
@@ -120,13 +107,6 @@ export default function EditorArrSection(props) {
       },
     }));
   }
-
-
-  // // Helper functions
-  // function capitalize(str) {
-  //   return str.charAt(0).toUpperCase() + str.slice(1);
-  // }
-
 
   // Returns 
   const header = userData.stagingCV[section].header ? userData.stagingCV[section].header : `## ${capitalize(section)}`;

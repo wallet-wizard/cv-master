@@ -14,7 +14,6 @@ function CustomTextarea(props) {
 
   return (
       <div>
-        <label htmlFor={`${id}-${props.id ? props.id : ""}`}></label>
         <TextareaAutosize
           ref={textAreaRef}
           id={`${id}-${props.id ? props.id : ""}`}
