@@ -12,8 +12,7 @@ import SearchJobs from './components/SearchJobs';
 import './utils/globalStyles.css'
 
 function App() {
-  const { authenticated, setAuthenticated, getCVMDatabase, getCVMCurrentUser } = useGlobalContext();
-  // const [ authenticated, setAuthenticated ] = useState(false);
+  const { authenticated, setAuthenticated, getCVMCurrentUser } = useGlobalContext();
 
   useEffect(() => {
     const currentUser = getCVMCurrentUser();
@@ -26,7 +25,6 @@ function App() {
     setAuthenticated(true)
   }
 
-  console.log("App RAN")
   return (
     <Router>
       {!authenticated ? (
@@ -34,7 +32,7 @@ function App() {
       ) : (
         <>
           <NavTabs />
-          {/* Wrap Route elements in a Routes component */}
+          {/* Wraps Route elements in a Routes component */}
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="myCVs" element={<MyCVs />} />

@@ -6,7 +6,7 @@ import PreviewModal from './PreviewModal';
 
 
 const links = [
-  { name: 'New CV', path: '/editor' },
+  { name: 'CV Title', path: '/editor' },
   { name: 'Basic Info', path: 'basic-info' },
   { name: 'Skills', path: 'skills' },
   { name: 'Experience', path: 'experience' },
@@ -15,6 +15,7 @@ const links = [
 ];
 
 export const EditorSideBar = (props) => {
+  const navigate = useNavigate();
   const { saveCV } = useGlobalContext();
   const [activeElement, setActiveElement] = useState(null)
   const [showModal, setShowModal] = useState(false);
@@ -22,9 +23,18 @@ export const EditorSideBar = (props) => {
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
 
+  useEffect(() => {
+    setActiveElement('basic-info')
+  }, [])
+
+  const handleSaveCV = () => {
+    saveCV();
+    // setCurrentRouteIndex(0);
+    navigate('/myCVs');
+  }
+
   function updateActiveLink(e) {
     const { name } = e.target;
-    console.log(name);
     setActiveElement(name);
   }
 
@@ -43,7 +53,7 @@ export const EditorSideBar = (props) => {
         <ul className='navbar-nav align-items-center justify-content-evenly'>
           {navElements}
         </ul>
-      <button onClick={saveCV} className="btn btn-primary save-cv-btn">SAVE CV</button>
+      <button onClick={handleSaveCV} className="btn btn-primary save-cv-btn">SAVE CV</button>
     </aside>
   );
 };
@@ -51,7 +61,6 @@ export const EditorSideBar = (props) => {
 // Adopded from 'react-bootstrap' and modified
 // https://getbootstrap.com/docs/4.0/components/dropdowns/
 export const EditorSideBtn = () => {
-  const { saveCV } = useGlobalContext();
   const navigate = useNavigate();
   const [activeElement, setActiveElement] = useState(null);
   const [showModal, setShowModal] = useState(false);

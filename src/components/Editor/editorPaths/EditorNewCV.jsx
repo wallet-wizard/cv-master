@@ -12,7 +12,8 @@ export default function EditorNewCV(props) {
 
   // Hide editor Selections
   useEffect(()=> {
-    setHideEditorOptions(true)
+    props.setIndex();
+    setHideEditorOptions(true);
   }, [])
 
   // LOGIC for submit

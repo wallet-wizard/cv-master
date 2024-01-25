@@ -5,7 +5,6 @@ export const usePreventReload = () => {
     const handleBeforeUnload = (event) => {
       const message = "Are you sure you want to leave?";
       event.returnValue = message; /* Standard for most browsers */
-      console.log("Prevented reload:", event.returnValue)
       return message; /* For some older browsers */
     };
 

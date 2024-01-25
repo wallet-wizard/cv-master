@@ -1,11 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { useGlobalContext } from '../../utils/GlobalContext';
-import './Login.css';
+import { useNavigate } from 'react-router-dom';
+import './login.css'
 
 export default function Login(props) {
-
+  const navigate = useNavigate();
   const [inputValue, setInputValue] = useState(null)
-  const { logout, authenticated, updateCVMCurrentUser } = useGlobalContext();
+  const { logout, authenticated, updateCVMCurrentUser,  getCVMCurrentUser, capitalize, getCVMDatabase} = useGlobalContext();
+
+  const welcomeMessage = "Welcome to CV Master";
+
+  // Get CV Count (if CVs are present in user's DB)
+  const currentUser = getCVMCurrentUser() || '';
+  const CVMDatabase = getCVMDatabase() || [];
+  const userDB = CVMDatabase.filter(DB => DB.userData.username === currentUser);
+  const userCVs = userDB.length > 0 ? userDB[0].userCVs : [];
+  const userCVsLength = userCVs.length;
+
+
+  // Ensure URL is correct
+  useEffect(() => {
+    navigate('./')
+  }, [])
 
   // LOGIC for submit
   function submitUser(e) {
@@ -17,7 +33,6 @@ export default function Login(props) {
 
     updateCVMCurrentUser(inputValue);
     props.allowUserIn(true);
-    // window.location.reload();
   }
 
   function handleChange(e) {
@@ -26,32 +41,65 @@ export default function Login(props) {
   }
 
 
-  useEffect(() => {
-    console.log("HI!")
-  }, [])
+  // NAVIGATION
+  function goToCVs() {
+    navigate('./myCVs')
+  }
+  function goToSearch() {
+    navigate('./searchJobs')
+  }
+  function goToEditor() {
+    navigate('./editor')
+  }
+
+
+
+
 
   return (
-    <div className='login-wrapper py-5 my-5'>
+    <div className='loginCompWrapper'>
       {!authenticated ? (
-        <>
-          <h1 className='text-center'>Welcome to CV MASTER</h1>
-          <div id='form-div'>
-            <form className='my-3' id='login-form' onSubmit={(e) => submitUser(e)}>
-              <div id='input-and-label' className='py-4'>
-                <label htmlFor="username" className='py-1'>Type your username:</label>
-                <input className=''onChange={(e) => handleChange(e)} id="username" type="text" />
-              </div>
-              <button id='submit-btn' className='btn' type="submit">LOGIN</button>
-            </form>
-          </div>
-        </>
+        <div className='loginWrapper'>
+          <h1 className='login-header'>{welcomeMessage}</h1>
+          <form className='login-form' onSubmit={(e) => submitUser(e)}>
+            <label className='login-label' htmlFor="username">Type your user name:</label>
+            <div className='login-inputNbtnContainer'>
+              <button className='login-submitBtn' type="submit">Log in</button>
+              <input 
+                className='login-input' 
+                onChange={(e) => handleChange(e)} 
+                id="username" 
+                type="text" 
+                placeholder='Enter username'
+              />
+            </div>
+          </form>
+        </div>
       ) : (
         <>
-          <div id='logout-area'>
-            <h1 id='user-greeting' className='py-3'>Hi, user!</h1>
-            <button id='logout-btn' onClick={logout} className="btn btn-lg">Log out?</button>
+          { userCVsLength > 0 ? <div className='welcomeWrapper'>
+            <h1 className='login-header'>{`Hey, ${capitalize(currentUser)}!`}</h1>
+
+            <h3 className="CVcound">You have created <a className='goToCVsLink'  tabIndex="0" onClick={goToCVs}>{`${userCVsLength} CVs`}</a></h3>
+
+            <div className="container-fluid actionContainer">
+              <button onClick={goToEditor} className=" btn welcomeBtn">Create CV</button>
+              <button onClick={goToSearch} className=" btn welcomeBtn">Search Jobs</button>
+              <button onClick={logout} className=" btn welcomeBtn">Log out?</button>
+            </div>
           </div>
+          :
+          <>
+            <h1>{`Welcome, ${capitalize(currentUser)}!`}</h1>
+            <h3 className="CVcound">Let's create your first CV!</h3>
+            <div className="container-fluid actionContainer">
+              <button onClick={goToEditor} className=" btn welcomeBtn">Create CV</button>
+              <button onClick={logout} className=" btn welcomeBtn">Log out?</button>
+            </div>
+          </>
+          }
         </>
+
       )}
     </div>
   )

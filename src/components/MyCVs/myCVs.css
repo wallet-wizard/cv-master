@@ -18,10 +18,10 @@
 
 /* CV Tools */
 .CVTools {
-    /* height: 5vh; */
+    /* height: 3.75rem; */
     display: flex;
     justify-content: center;
-    background-color: rgba(77, 83, 98, 0.3);
+    background-color: var(--toolbar-bg-color);
     margin-bottom: 1rem;
     margin-top: 0rem;
     padding-top: 0rem;
@@ -102,4 +102,16 @@
 .previewCV li{
     font-size: 1.1rem;
     margin: 0.75rem 0px;
+    font-weight: 400;
+}
+
+
+/* NO CVS YET Section */
+.noCVs {
+    height: calc(70vh - var(--navbar-height));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }

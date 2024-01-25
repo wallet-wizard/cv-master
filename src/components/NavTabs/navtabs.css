@@ -15,10 +15,11 @@
     font-family: 'Kaushan Script', cursive;
     font-weight: 700;
     font-size: 1.6em;
+    padding-left: 0.7rem;
 }
 
 .navtabs-nav .nav-link {
-    font-family: 'Oxygen', sans-serif;
+    font-family: 'Numans', sans-serif;
 }       
 
 /* NAVBAR - COLLAPSE */
@@ -26,13 +27,3 @@
 .navbar-collapse {
     background-color: white;
 }
-
-
-
-
-
-/* @media screen and (orientation: landscape) {
-    .editor-sideBar {
-        display: none !important;
-    }
-  } */

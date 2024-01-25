@@ -42,17 +42,17 @@ function NavTabs() {
       <div className={`collapse navbar-collapse justify-content-end ${isMenuOpen ? 'show' : ''}`} id="navbarSupportedContent">
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
-            <NavLink to="myCVs" className="nav-link">
+            <NavLink to="myCVs" className="nav-link" onClick={toggleActive}>
               My CVs
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to="searchJobs" className="nav-link">
+            <NavLink to="searchJobs" className="nav-link" onClick={toggleActive}>
               Search Jobs
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to="editor" className="nav-link">
+            <NavLink to="editor" className="nav-link" onClick={toggleActive}>
               Editor
             </NavLink>
           </li>
