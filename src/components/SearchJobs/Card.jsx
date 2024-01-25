@@ -16,9 +16,9 @@ function Card(props) {
       <p>Posted: {dayjs(props.created).format("D/M/YYYY")}</p>
       <strong>
         <div className="job-url-section">
-          <button className=" btn job-url" href={props.url} target="_blank">
+          <a className=" btn job-url" href={props.url} target="_blank">
             Apply Now
-          </button>
+          </a>
           <Link to="/editor" relative="path" className="btn job-url">
             Create CV
           </Link>
