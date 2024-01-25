@@ -6,7 +6,6 @@ import ReactMarkdown from 'react-markdown';
 import './PreviewModal.css'
 
 const PreviewModal = ({ showModal, handleClose }) => {
-  console.log("Preview Rendered")
   const { userData } = useGlobalContext()
   const data = userData.stagingCV;
 
@@ -15,8 +14,6 @@ const PreviewModal = ({ showModal, handleClose }) => {
     CVTitle = " _New CV_ "
   }
 
-  
-  console.log(data)
   const title = data.title;
   const summary = data.summary;
   const skillsHeader = data.skills ? data.skills.header : '';
@@ -58,7 +55,7 @@ const PreviewModal = ({ showModal, handleClose }) => {
   ${other}
   `
   )
-  // console.log(combinedText);
+
 
   return (
     <Modal show={showModal} onHide={handleClose} size="lg" className='PreviewModal'>

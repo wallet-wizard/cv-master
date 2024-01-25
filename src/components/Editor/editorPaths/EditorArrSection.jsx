@@ -13,7 +13,7 @@ export default function EditorArrSection(props) {
   const dragItem = useRef(null);
   const dragOverItem = useRef(null);
 
-  console.log("focused:", focusedTextarea)
+  
    // Hide editor Selections
    useEffect(()=> {
     props.setIndex();
@@ -95,7 +95,7 @@ export default function EditorArrSection(props) {
 
   function removeTextarea(index) {
     const updatedSection = sectionArr.filter((_, i) => i !== index);
-    console.log("updatedSection:", updatedSection)
+
     setUserData((prev) => ({
       ...prev,
       stagingCV: {

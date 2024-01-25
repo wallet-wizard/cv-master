@@ -41,15 +41,13 @@ export default function MyCVs() {
 
 
 		function getIndex(e, index) {
-			console.log(e.target)
-			console.log(index)
 			setCurrentSelection(index)
 		}
 
 		function checkLastDigit(index) {
 			// Get the last digit of the index
 			const lastDigit = index % 10;
-			console.log(index)
+
 			// Check if the last digit is one of the specified values
 			if (lastDigit === 1 || lastDigit === 3 || lastDigit === 5 || lastDigit === 7 || lastDigit === 9) {
 				return "lighter";
