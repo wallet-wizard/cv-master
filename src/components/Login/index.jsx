@@ -92,7 +92,10 @@ export default function Login(props) {
           <>
             <h1>{`Welcome, ${capitalize(currentUser)}!`}</h1>
             <h3 className="CVcound">Let's create your first CV!</h3>
-            <button onClick={goToEditor} className=" btn welcomeBtn">Create CV</button>
+            <div className="container-fluid actionContainer">
+              <button onClick={goToEditor} className=" btn welcomeBtn">Create CV</button>
+              <button onClick={logout} className=" btn welcomeBtn">Log out?</button>
+            </div>
           </>
           }
         </>
