@@ -8,8 +8,8 @@ export const stageTitle = (`# Enter Name
 ### Front End Developer
 
 📧 Email: john.doe@example.com | 🌐 Portfolio: [john-doe.dev](https://www.john-doe.dev) | 📱 LinkedIn: [linkedin.com/in/johndoe](https://www.linkedin.com/in/johndoe) | 📞 Phone: (555) 123-4567
-____
-`
+
+____`
 );
 
 export const stageSummary = (
@@ -69,7 +69,7 @@ export const stageOther = (
 
 
 ## References
-Dan Mueller
+Dan Mueller (duh!)
 `
 )
 

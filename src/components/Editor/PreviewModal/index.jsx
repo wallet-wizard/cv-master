@@ -59,7 +59,7 @@ const PreviewModal = ({ showModal, handleClose }) => {
       <Modal.Header closeButton>
         <Modal.Title>{CVTitle}</Modal.Title>
       </Modal.Header>
-      <Modal.Body style={{ height: '297mm', width: '210mm'}}>
+      <Modal.Body>
         {/* Your content goes here */}
         <ReactMarkdown>
           {combinedText}

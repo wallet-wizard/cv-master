@@ -60,7 +60,7 @@ export default function Editor() {
             <Route path="other" element={<EditorStrSection key="other" setIndex={() => setCurrentRouteIndex(5)} section="other" elements={["other"]} />} />
         </Routes>
         {(currentRouteIndex > 0) && (currentRouteIndex < 5) && (
-          <div className="editor-navBlock d-flex justify-content-center">
+          <div className="editor-navBlock d-flex d-md-none justify-content-center">
             <button 
               name="previous" 
               className="btn btn-secondary previous"
@@ -77,7 +77,7 @@ export default function Editor() {
           </div>
         )}
         {(currentRouteIndex === 5) && (
-          <div className="editor-navBlock d-flex justify-content-center">
+          <div className="editor-navBlock d-flex d-md-none justify-content-center">
             <button 
               name="previous" 
               className="btn btn-secondary previous"

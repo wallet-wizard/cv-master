@@ -6,7 +6,7 @@ import PreviewModal from './PreviewModal';
 
 
 const links = [
-  { name: 'New CV', path: '/editor' },
+  { name: 'CV Title', path: '/editor' },
   { name: 'Basic Info', path: 'basic-info' },
   { name: 'Skills', path: 'skills' },
   { name: 'Experience', path: 'experience' },
@@ -23,7 +23,12 @@ export const EditorSideBar = (props) => {
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
 
+  useEffect(() => {
+    setActiveElement('basic-info')
+  }, [])
+
   const handleSaveCV = () => {
+    console.log("Here!")
     saveCV();
     // setCurrentRouteIndex(0);
     navigate('/myCVs');
