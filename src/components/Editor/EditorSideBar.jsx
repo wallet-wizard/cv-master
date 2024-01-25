@@ -28,7 +28,6 @@ export const EditorSideBar = (props) => {
   }, [])
 
   const handleSaveCV = () => {
-    console.log("Here!")
     saveCV();
     // setCurrentRouteIndex(0);
     navigate('/myCVs');
@@ -36,7 +35,6 @@ export const EditorSideBar = (props) => {
 
   function updateActiveLink(e) {
     const { name } = e.target;
-    console.log(name);
     setActiveElement(name);
   }
 

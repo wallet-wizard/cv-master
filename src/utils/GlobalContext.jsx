@@ -176,14 +176,10 @@ export const GlobalContextProvider = ({ children }) => {
 
     // Update localStorage
     updateCVMDatabase(newUserData)
-
-    // Console log:
-    console.log("DB Updated:")
-    console.log(getCVMDatabase())
   }
 
 
-  
+
   // RUNS ON EVERY APP REFRESH + ON USER CHANGE
   useEffect(() => {
     if (!authenticated) {
@@ -198,7 +194,7 @@ export const GlobalContextProvider = ({ children }) => {
 
     // Create CVMDatabase if it doesn't exist
     if (!CVMDatabase) {
-      console.log("NO DATABASE!, creating new..")
+      console.log("NO DATABASE!, creating..")
       updateLocalStorage('CVMDatabase', []);
       CVMDatabase = getCVMDatabase();
     }
@@ -246,17 +242,21 @@ export const GlobalContextProvider = ({ children }) => {
     }
 
     if (type === 'duplicate') {
-      console.log("It's duplicating!!")
-      console.log("Index:", index)
+      console.log("It's duplicating CV!")
       newCVarr.push(newCVarr[index])
-      console.log("This:", newCVarr)
     }
 
     if (type === 'modify') {
-      console.log(newCVarr[index])
+      console.log("CV can be modified in editor!")
+      setUserData((prev) => {
+        return {
+          ...prev,
+          stagingCV: newCVarr[index].data
+        }
+      })
     }
 
-    
+
     setUserData((prev) => {
       const newUserData = {
         ...prev,
@@ -266,15 +266,15 @@ export const GlobalContextProvider = ({ children }) => {
       if (newUserData) {
         // Update Local Storage
         updateCVMDatabase(newUserData);
-  
+
         return newUserData
       } else {
         return prev;
       }
-    }) 
+    })
 
   }
-  
+
 
 
 

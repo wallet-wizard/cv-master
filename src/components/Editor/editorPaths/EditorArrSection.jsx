@@ -13,7 +13,7 @@ export default function EditorArrSection(props) {
   const dragItem = useRef(null);
   const dragOverItem = useRef(null);
 
-  console.log("focused:", focusedTextarea)
+  
    // Hide editor Selections
    useEffect(()=> {
     props.setIndex();
@@ -21,7 +21,7 @@ export default function EditorArrSection(props) {
   }, [])
 
   // Create section Elements
-  const sectionArr = userData.stagingCV[section][section] || [];
+  const sectionArr = userData.stagingCV[section] ? userData.stagingCV[section][section] : [];
   const sectionEl = sectionArr.map((sectionItem, index) => (
     <div
       key={`${section}-${index}`}
@@ -95,7 +95,7 @@ export default function EditorArrSection(props) {
 
   function removeTextarea(index) {
     const updatedSection = sectionArr.filter((_, i) => i !== index);
-    console.log("updatedSection:", updatedSection)
+
     setUserData((prev) => ({
       ...prev,
       stagingCV: {
@@ -109,7 +109,7 @@ export default function EditorArrSection(props) {
   }
 
   // Returns 
-  const header = userData.stagingCV[section].header ? userData.stagingCV[section].header : `## ${capitalize(section)}`;
+  const header = userData.stagingCV[section] ? userData.stagingCV[section].header : `## ${capitalize(section)}`;
 
   return (
     <div className={`d-block Editor-${section}`}>

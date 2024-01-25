@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useGlobalContext } from '../../../utils/GlobalContext';
 import TextareaAutosize from 'react-textarea-autosize';
@@ -6,7 +6,6 @@ import ReactMarkdown from 'react-markdown';
 import './PreviewModal.css'
 
 const PreviewModal = ({ showModal, handleClose }) => {
-
   const { userData } = useGlobalContext()
   const data = userData.stagingCV;
 
@@ -17,16 +16,20 @@ const PreviewModal = ({ showModal, handleClose }) => {
 
   const title = data.title;
   const summary = data.summary;
-  const skillsHeader = data.skills.header;
-  const skillsArr = data.skills.skills;
-  const expHeader  = data.experience.header;
-  const expArr = data.experience.experience;
-  const eduHeader = data.education.header;
-  const eduArr = data.education.education;
-  const other = data.other;
+  const skillsHeader = data.skills ? data.skills.header : '';
+  const skillsArr = data.skills ? data.skills.skills : [];
+  const expHeader  = data.experience ? data.experience.header : '';
+  const expArr = data.experience ? data.experience.experience : [];
+  const eduHeader = data.educatio ? data.education.header : '';
+  const eduArr = data.education ? data.education.education : [];
+  const other = data.other ? data.other : '';
 
 
   function handleArr(header, bodyArr) {
+
+    if (!header) {
+      return '';
+    }
     let combined = `${header}\n`;
     for (const body of bodyArr ) {
       combined += body;
@@ -52,7 +55,7 @@ const PreviewModal = ({ showModal, handleClose }) => {
   ${other}
   `
   )
-  // console.log(combinedText);
+
 
   return (
     <Modal show={showModal} onHide={handleClose} size="lg" className='PreviewModal'>

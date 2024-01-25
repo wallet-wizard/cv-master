@@ -1,37 +1,74 @@
 .job-body {
-    background-color: #e6e6e6;
+    --job-card-bg-color: rgba(77, 83, 98, 0.2);
+    --job-header-color: rgba(77, 83, 98, 1);
 }
 
-.job-search-title {
-    background-color: #4d53624d;
-    font-family: 'Kaushan Script', cursive;
-    display: flex;
-    justify-content: center;
-    padding: 2rem;
-    border-bottom: solid;
-    box-shadow: 6px 6px 8px;
+.job-body {
+    background-color: var(--body-bg-color);
+    font-family: 'Numans', sans-serif;
 }
 
 .job-card-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-wrap: wrap;
 }
 
-@media only screen and (max-width: 768px) {
-    .job-card-container {
-        display: grid;
-        grid-template-columns: 1fr;
-    }
+
+/* JOBS SEARCH TITLE */
+.job-search-title {
+    display: flex;
+    height: 3.75rem;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--toolbar-bg-color);
+    margin-bottom: 1rem;
+    margin-top: 0rem;
+    padding-top: 0rem;
+}
+.job-search-title h1 {
+    margin: 0;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+}
+
+/* JOB TITLE */
+
+.job-basicInfoContainer {
+    margin-bottom: 2rem;
+}
+
+.job-title {
+    border-bottom: solid;
+    border-color: grey;
+    border-width: 0.1rem;
+    font-weight: 800;
+    font-size: 1.5rem;
+}
+.job-company {
+    font-size: 1.2rem;
+}
+.job-posting-info {
+    margin: 0;
+
 }
 
 .job-card {
-    padding: 1rem;
-    display:flex;
-    flex-direction: column;
+    flex-grow: 1;
     align-items: space-around;
-    background-color: rgba(135, 149, 202, 1);
-    margin: 1.5rem;
-    border-radius: 10px;
+    background-color: var(--job-card-bg-color);
+    padding: 40px;
+    width:40%;
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* JOB URL SECTION */
+
+.job-url-section {
+    display: flex;
+    justify-content: space-around;
 }
 
 .job-url {
@@ -45,13 +82,11 @@
 }
 
 
-.job-url-section {
-    display: flex;
-    justify-content: space-around;
-}
 
-.job-title {
-    border-bottom: solid;
-    border-color: grey;
-    border-width: 0.1rem;
+
+
+@media only screen and (max-width: 768px) {
+    .job-card {
+        width: 100%;
+    }
 }
