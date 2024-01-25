@@ -32,14 +32,6 @@
     letter-spacing: 0.075rem;
     background-color:var(--editor-sidebar-bg-dark);
 }
-/* .side-nav {
-    margin-top: 7rem;
-
-}
-.editor-sideBar .navbar-nav {
-    height: 33%;
-    margin-bottom: 10rem;
-} */
 
 .editor-sideBar button {
     border: 0;
