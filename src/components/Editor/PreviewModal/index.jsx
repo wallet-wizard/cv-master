@@ -20,7 +20,7 @@ const PreviewModal = ({ showModal, handleClose }) => {
   const skillsArr = data.skills ? data.skills.skills : [];
   const expHeader  = data.experience ? data.experience.header : '';
   const expArr = data.experience ? data.experience.experience : [];
-  const eduHeader = data.educatio ? data.education.header : '';
+  const eduHeader = data.education ? data.education.header : '';
   const eduArr = data.education ? data.education.education : [];
   const other = data.other ? data.other : '';
 
