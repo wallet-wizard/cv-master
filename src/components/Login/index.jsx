@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useGlobalContext } from '../../utils/GlobalContext';
 import { useNavigate } from 'react-router-dom';
-import './login.css'
+import './logingood.css'
 
 export default function Login(props) {
   const navigate = useNavigate();
